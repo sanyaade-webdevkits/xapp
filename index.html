@@ -10,7 +10,7 @@
 	* Add support for tab images
 	* add support for list item switch image
 	* vertical center if there is an aside
-	
+	* add support for right hand button
 	
 	
 	// header from
@@ -24,348 +24,39 @@
 <html lang="en">
 <head>
 	<title>Mobile Application Boilerplate</title>
+
 	<meta name = "viewport" content = "width = device-width,maximum-scale=1.0, user-scalable = no">
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 	<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
 	<script type="text/javascript" src="js/jquery.template.js"></script>
 	<script type="text/javascript" src="js/touch-scroll.min.js"></script>
-	
+
+	<link rel="stylesheet" type="text/css" href="css/xapp.css" />	
+
+	<script type="text/javascript" src="js/xapp.js"></script>
 	<script type="text/javascript">
-	
-		var breadcrumbs = new Array();
-		var pages = new Array();
-		var current_page = 0;
-		var tabs = new Array();
-		var toolbar_timeout = null;
-		var scroller = null;
-		
-		$(function() {
-
-			// suck all the current pages into an array so we know where we are.
-			$('div#application > #pages >  ul > li').each(function() { 
-				pages.push({title: $(this).attr('data-title'),offset: $(this).position().left,id: $(this).attr('id')});
-			});
-				
-			// show the first page
-			$('div#application > #pages > ul > li:first-child').show();
-				
-			// show the first tab of any multi-tab page
-			$('div#application > #pages > ul > li > section').hide();
-			$('div#application > #pages > ul > li > section:first-child').show();
-		
-			$('div#application > div#toolbar > a.back').live('click',prevPage);
-			$('div#application > div#toolbar').click(function(e) {
-				e.preventDefault();
-				$('div#application > #pages > ul').touchScroll('setPosition', 0);			
-			});
-	
-			$('div#application > div#footer > a').live('click',switchTab);
-			
-			// handle iOS scrolling
-			// may not be needed when iOS 5.0 comes out!
-			$('div#application > #pages > ul').touchScroll();
-	
-			$('div#application > #pages > ul > li ul.list > li').live('click',function() {
-				$(this).addClass('active');
-				var event = $(this).attr('data-click');
-				eval(event);
-			});
-	
-			updateToolbar();
-		});	
-		
-		
-		function updateToolbar() {
-		
-			$('div#application div#toolbar').html("<h1>"+pages[current_page].title + "</h1>");
-			if (breadcrumbs.length > 0) {
-				back_button_title = breadcrumbs[breadcrumbs.length-1].title;
-				$('div#application > div#toolbar').prepend('<a href="#" class="button back">' + back_button_title + '</a>');		
-			}
-			
-			var id = '#'+pages[current_page].id;
-			$('div#application > #pages > ul').touchScroll({scrollHeight:$(id).outerHeight(true)});
-			$('div#application > #pages > ul').touchScroll('update');
-			$('div#application > #pages > ul').touchScroll('setPosition', 0);
-
-			updateTabs();
-		}
-		
-		function updateTabs() {
-		
-			$('div#application > div#footer').hide();
-			$('div#application > div#footer').html('');
-			var id = '#'+pages[current_page].id;
-			
-			tabs = new Array();
-
-			// suck all the tabs into an array 
-			$(id + ' > section').each(function() {
-				tabs.push({title: $(this).attr('data-title'),id: $(this).attr('id')});
-				$(this).hide();
-				$('div#application > div#footer').append('<a href="#" data-tab="' + $(this).attr('id') + '"><strong>' + $(this).attr('data-title') + '</strong></a>');
-			});
-
-			// show the first tab.
-			$(id + ' > section').hide();
-			$(id+ ' > section:first-child').show();
-			$('div#application > div#footer > a:first-child').addClass('active');
-
-			if (tabs.length > 0) {
-				$('div#application > div#footer').show();
-			}
-			$('div#application > #pages > ul > li ul.list > li').removeClass('active');
-
-		
-		}
-		
-		
-		function switchTab() {
-			// switch to which tab?
-			var tab = $(this).attr('data-tab');
-
-			var id = '#'+pages[current_page].id;
-
-			// deactivate other tabs
-			$('div#application > div#footer > a').removeClass('active');
-			$(id + ' > section').hide();
-
-			$('div#application > #pages > ul').touchScroll('setPosition', 0);
-
-			// activate this tab
-			$(this).addClass('active');
-			$('#' + tab).show();
-
-			$('div#application > #pages > ul').touchScroll({scrollHeight:$(id).outerHeight(true)});
-			$('div#application > #pages > ul').touchScroll('update');
-			$('div#application > #pages > ul').touchScroll('setPosition', 0);
-
-		}
-		
-
-
-		function nextPage() {			
-			breadcrumbs.push({title:  pages[current_page].title, index: current_page, offset: pages[current_page].offset});
-			
-			var next_id = pages[current_page+1].id;
-						
-			$('div#application > #pages > ul').animate({
-				left: '-=320',
-			},'fast',function() {
-				current_page++;
-				updateToolbar();
-			});
-			
-			return false;
-		}
-
-
-		function prevPage() {
-			var prev_page = breadcrumbs.pop();
-			
-			var new_offset = prev_page.offset;
-			console.log(new_offset);
-			$('div#application > #pages >  ul').animate({
-				left: -new_offset,
-			},'fast',function() {
-				current_page=prev_page.index;
-				updateToolbar();
-			});
-			return false;
-		}
-		
-		function gotoPage(x) {
-			breadcrumbs.push({title:  pages[current_page].title, index: current_page, offset: pages[current_page].offset});
-			var new_offset = pages[x].offset;
-			$('div#application > #pages > ul').animate({
-				left: -new_offset,
-			},'fast',function() {
-				current_page = x;
-				updateToolbar();
-			});
-			return false;
-		}
-
-
-
-		function loadDynamic() {
-			$('#dynamic').load('external.html',function() { gotoPage(3); });
-		}
-		
+		$(window).ready(function() { 
+			// boot up the mobification!
+			XAPP.boot();
+		});
 	</script>
-	
-	<style type="text/css">
-		ul { list-style-type: none; margin:0px; padding:0px; }
-		 
-		body { background: #000; padding:0px; margin:0px; overflow-y: hidden;   font-size:        125%;   font-family:      helvetica, arial, sans-serif;}
-		div#application { width: 320px;  margin-left:auto; margin-right: auto; overflow-x: hidden; overflow-y: auto; background: #FFF; position: fixed; }
-		div#application > #pages { position: fixed; overflow-y: auto; overflow-x:hidden; width:320px; background: #FFF; } 
-
-		div#application > #pages > ul { position: relative; width: 3000px; min-height: 400px; background: #F0F0F0; } 
-		div#application > #pages > ul > li { display: block; width: 320px; min-height: 400px; float: left;  background: #FFF; }
-		
-		div#application > #pages > ul > li div.padded { padding-left: 13px; padding-right: 13px; padding-top:8px; padding-bottom:15px;  } 
-		
-		div#application > div#toolbar {  text-align: center; position: relative; 	
-			border-top:1px solid #666; 
-			border-bottom:1px solid #111; 
-			background: #222; 
-			background: -moz-linear-gradient(top, #333 0%, #111 100%); 
-			background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.55)), color-stop(0.2, rgba(255, 255, 255, 0.35)), color-stop(0.5, rgba(255, 255, 255, 0.1)), color-stop(0.5, transparent), to(transparent) ); 
-			color: #FFF; 
-
-		} 
-
-		div#application > #pages > ul > li ul.list li { 
-			padding: 7px 13px; 
-			border-bottom: 1px solid #000; 
-			clear:both;
-			vertical-align: middle;
-			width: 100%;
-		}
-
-		div#application > #pages > ul > li ul.list li span { 			
-			display: block;
-		}
-
-		div#application > #pages > ul > li ul.list li:after { 
-			
-			content: ".";
-			display: block;
-			height: 0;
-			clear: both;
-			visibility: hidden;
-			
-		}
-		
-		
-   		div#application > #pages > ul > li  ul.list li.active { 
-			background: #2c7ae5;
-			color: #FFF;
-		}
-
-		div#application > #pages > ul > li ul.list li aside {
-			float: left;
-			width: 50px; 
-			min-height: 50px; 
-			height: 100%; 
-			margin-right: 13px; 
-		} 
-		
-		
-		div#application > div#toolbar h1 {  
-			margin:0px;
-			 padding:5px 0 5px 0;text-align:center; 
-			  font-size:20px; 
-			  text-shadow:rgba(0, 0, 0, 1) 0 -1px 0;  
-		  }
-
-		div#application > div#toolbar .button { 
-		  display:block; 
-		  padding:2px 10px; 
-		  line-height:21px; 
-		  border-radius: 5px; 
-		  -moz-border-radius:5px; 
-		  -webkit-border-radius: 5px; 
-		  overflow:hidden; 
-		  height: 21px; 
-		  font-weight: bold; 
-		  position: absolute; 
-		  top: 3px; 
-		  font-family:inherit; 
-		  font-size:12px; 
-		  text-shadow:rgba(0, 0, 0, 0.6) 0 -1px 0; 
-		  text-overflow:ellipsis; 
-		  text-align:center; 
-		  white-space:nowrap; 
-		  background:none; 
-		  cursor:pointer; 
-		  margin:0; 
-		  -webkit-transition: all .3s ease-in-out; 
-		  -moz-transition: all .3s ease-in-out; 
-		  -o-transition: all .3s ease-in-out; 
-		} 
-		div#application > div#toolbar .button:link, .button:visited { 
-		  color:#fff; 
-		  background: #555; 
-		  background: -moz-linear-gradient(top, #555 0%, #222 100%); 
-		  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.55)), color-stop(0.2, rgba(255, 255, 255, 0.35)), color-stop(0.5, rgba(255, 255, 255, 0.1)), color-stop(0.5, transparent), to(transparent) ); 
-		  border:1px solid #222; 
-		  text-decoration:none; 
-		  -webkit-box-shadow:inset 0 1px 1px rgba(0, 0, 0, .25), 0 1px 0 rgba(255, 255, 255, 0.25); 
-		} 
-		div#application > div#toolbar .button:active, .button:focus, .button:hover { 
-		  text-decoration:none; 
-		  background: #444; 
-		  background: -moz-linear-gradient(top, #444 0%, #111 100%); 
-		  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.55)), color-stop(0.2, rgba(255, 255, 255, 0.35)), color-stop(0.5, rgba(255, 255, 255, 0.1)), color-stop(0.5, transparent), to(transparent) ); 
-		}
-	
-
-
-		div#application > div#toolbar a.back { position: absolute; left: 3px; }
-		div#application > div#footer { 
-		
-	       background-color:       #000;
-	        padding:                .1em 0;
-	        position:               fixed;
-	        bottom:                 0;
-	        width:                  100%;
-	        border-top:             .05em solid rgba(255,255,255,.33);
-	        -webkit-box-shadow:     0 -0.05em 0 rgba(0,0,0,0.9);
-	        background-image:       -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(255,255,255,.15)), color-stop(0.5, rgba(255,255,255,.10)), color-stop(0.505, rgba(255,255,255,.0)), to(rgba(255,255,255,.0)));
- 		
-		
-		} 
-		div#application > div#footer > a {       
-				margin:                 0 auto;
-				width:                  3.5em;
-				height:                 2.5em;
-				position:               relative;
-				border-radius:          .25em;
-				-webkit-border-radius:  .25em;
-				display:                inline-block;
-				vertical-align:         middle; 
-				text-decoration: none;
-		}
-
-		div#application > div#footer > a  > strong{
-	        position:               absolute;
-	        font-size:              .5em;
-	        color:                  #999;
-	        bottom:                 0;
-	        width:                  100%;
-	        text-align:             center;
-	        line-height:            1.5em;
-	        font-weight:            bold;
-	        -webkit-font-smoothing: antialiased;
-      }
- 
-		div#application > div#footer >      a.active{
-        background-color:       rgba(255,255,255,.10);
-      }
-      
- 		div#application > div#footer >     a.active > strong{
-        color:                  #fff;
-      }
-
-
-
-	</style>
-	
 </head>
 <body>
 	<div id="application">
-		<div id="toolbar">
-		</div>
+		<header>
+			<!-- 
+				This is the top toolbar where the back button and title will appear.
+			-->
+		</header>
 		<div id="pages">
 			<ul>
 				<li id="welcome" data-title="Tours">
 					<ul class="list">
-						<li data-click="nextPage();">
+						<li data-click="XAPP.nextPage();">
 							<aside>
 								<img src="img/img.png" width="50" height="50">
 							</aside>
@@ -373,7 +64,7 @@
 								Summer 2011
 							</span>
 						</li>
-						<li data-click="nextPage();">
+						<li data-click="XAPP.nextPage();">
 							<aside>
 								<img src="img/img.png" width="50" height="50">
 							</aside>
@@ -381,7 +72,7 @@
 								Winter 2011
 							</span>
 						</li>
-						<li data-click="nextPage();">
+						<li data-click="XAPP.nextPage();">
 							<aside>
 								<img src="img/img.png" width="50" height="50">
 							</aside>
@@ -394,7 +85,7 @@
 				</li>
 				<li id="second" data-title="Tour Dates">
 					<ul class="list">						
-						<li data-click="nextPage();">
+						<li data-click="XAPP.nextPage();">
 							<aside>
 								12 hours
 							</aside>
@@ -407,7 +98,7 @@
 								And then 6 hours and 300 miles later...
 							</p>
 						</li>
-						<li data-click="nextPage();">
+						<li data-click="XAPP.nextPage();">
 							<aside>
 								2 days
 							</aside>
@@ -421,7 +112,7 @@
 								And then 2 hours and 300 miles later...
 							</p>
 						</li>
-						<li data-click="nextPage();">
+						<li data-click="XAPP.nextPage();">
 							<aside>
 								3 days
 							</aside>
@@ -494,7 +185,11 @@
 				</li>
 			</ul>
 		</div>
-		<div id="footer"></div>
+		<footer>
+			<!--
+				This is the footer bar that appears when tabs are used.
+			-->
+		</footer>
 	</div>		
 </body>
 </html>

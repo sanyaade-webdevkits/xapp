@@ -1,0 +1,163 @@
+		ul { list-style-type: none; margin:0px; padding:0px; }
+		 
+		body { background: #000; padding:0px; margin:0px; overflow-y: hidden;   font-size:        125%;   font-family:      helvetica, arial, sans-serif;}
+		div#application { width: 320px;  margin-left:auto; margin-right: auto; overflow-x: hidden; overflow-y: auto; background: #FFF; position: fixed; }
+		div#application > #pages { position: fixed; overflow-y: auto; overflow-x:hidden; width:320px; background: #FFF; } 
+
+		div#application > #pages > ul { position: relative; width: 3000px; min-height: 400px; background: #F0F0F0; } 
+		div#application > #pages > ul > li { display: block; width: 320px; min-height: 400px; float: left;  background: #FFF; }
+		
+		div#application > #pages > ul > li div.padded { padding-left: 13px; padding-right: 13px; padding-top:8px; padding-bottom:15px;  } 
+		
+		div#application > header {  text-align: center; position: relative; 	
+			border-top:1px solid #666; 
+			border-bottom:1px solid #111; 
+			background: #222; 
+			background: -moz-linear-gradient(top, #333 0%, #111 100%); 
+			background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.55)), color-stop(0.2, rgba(255, 255, 255, 0.35)), color-stop(0.5, rgba(255, 255, 255, 0.1)), color-stop(0.5, transparent), to(transparent) ); 
+			color: #FFF; 
+
+		} 
+
+		div#application > #pages > ul > li ul.list li { 
+			padding: 7px 13px; 
+			border-bottom: 1px solid #000; 
+			clear:both;
+			vertical-align: middle;
+			width: 100%;
+		}
+
+		div#application > #pages > ul > li ul.list li span { 			
+			display: block;
+		}
+
+		div#application > #pages > ul > li ul.list li:after { 
+			
+			content: ".";
+			display: block;
+			height: 0;
+			clear: both;
+			visibility: hidden;
+			
+		}
+		
+		
+   		div#application > #pages > ul > li  ul.list li.active { 
+			background: #2c7ae5;
+			color: #FFF;
+		}
+
+		div#application > #pages > ul > li ul.list li aside {
+			float: left;
+			width: 50px; 
+			min-height: 50px; 
+			height: 100%; 
+			margin-right: 13px; 
+		} 
+
+
+		/* Cool Header styles from 	http://www.cagintranet.com/archive/create-an-ios-header-bar-in-css3-and-html5/ */
+
+		
+		
+		div#application > header h1 {  
+			margin:0px;
+			 padding:5px 0 5px 0;text-align:center; 
+			  font-size:20px; 
+			  text-shadow:rgba(0, 0, 0, 1) 0 -1px 0;  
+		  }
+
+		div#application > header .button { 
+		  display:block; 
+		  padding:2px 10px; 
+		  line-height:21px; 
+		  border-radius: 5px; 
+		  -moz-border-radius:5px; 
+		  -webkit-border-radius: 5px; 
+		  overflow:hidden; 
+		  height: 21px; 
+		  font-weight: bold; 
+		  position: absolute; 
+		  top: 3px; 
+		  font-family:inherit; 
+		  font-size:12px; 
+		  text-shadow:rgba(0, 0, 0, 0.6) 0 -1px 0; 
+		  text-overflow:ellipsis; 
+		  text-align:center; 
+		  white-space:nowrap; 
+		  background:none; 
+		  cursor:pointer; 
+		  margin:0; 
+		  -webkit-transition: all .3s ease-in-out; 
+		  -moz-transition: all .3s ease-in-out; 
+		  -o-transition: all .3s ease-in-out; 
+		} 
+		div#application > header .button:link, .button:visited { 
+		  color:#fff; 
+		  background: #555; 
+		  background: -moz-linear-gradient(top, #555 0%, #222 100%); 
+		  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.55)), color-stop(0.2, rgba(255, 255, 255, 0.35)), color-stop(0.5, rgba(255, 255, 255, 0.1)), color-stop(0.5, transparent), to(transparent) ); 
+		  border:1px solid #222; 
+		  text-decoration:none; 
+		  -webkit-box-shadow:inset 0 1px 1px rgba(0, 0, 0, .25), 0 1px 0 rgba(255, 255, 255, 0.25); 
+		} 
+		div#application > header .button:active, .button:focus, .button:hover { 
+		  text-decoration:none; 
+		  background: #444; 
+		  background: -moz-linear-gradient(top, #444 0%, #111 100%); 
+		  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.55)), color-stop(0.2, rgba(255, 255, 255, 0.35)), color-stop(0.5, rgba(255, 255, 255, 0.1)), color-stop(0.5, transparent), to(transparent) ); 
+		}
+	
+
+
+		div#application > header a.back { position: absolute; left: 3px; }
+		
+		
+		
+		/* Cool Footer styles from 	http://jordandobson.com/webkit_mask_iphone_nav/retina/# */
+
+		div#application > footer { 
+		
+	       background-color:       #000;
+	        padding:                .1em 0;
+	        position:               fixed;
+	        bottom:                 0;
+	        width:                  100%;
+	        border-top:             .05em solid rgba(255,255,255,.33);
+	        -webkit-box-shadow:     0 -0.05em 0 rgba(0,0,0,0.9);
+	        background-image:       -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(255,255,255,.15)), color-stop(0.5, rgba(255,255,255,.10)), color-stop(0.505, rgba(255,255,255,.0)), to(rgba(255,255,255,.0)));
+ 		
+		
+		} 
+		div#application > footer > a {       
+				margin:                 0 auto;
+				width:                  3.5em;
+				height:                 2.5em;
+				position:               relative;
+				border-radius:          .25em;
+				-webkit-border-radius:  .25em;
+				display:                inline-block;
+				vertical-align:         middle; 
+				text-decoration: none;
+		}
+
+		div#application > footer > a  > strong{
+	        position:               absolute;
+	        font-size:              .5em;
+	        color:                  #999;
+	        bottom:                 0;
+	        width:                  100%;
+	        text-align:             center;
+	        line-height:            1.5em;
+	        font-weight:            bold;
+	        -webkit-font-smoothing: antialiased;
+      }
+ 
+		div#application > footer >      a.active{
+        background-color:       rgba(255,255,255,.10);
+      }
+      
+ 		div#application > footer >     a.active > strong{
+        color:                  #fff;
+      }
+
