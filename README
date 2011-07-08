@@ -1,0 +1,11 @@
+This is the XOXCO Boilerplate for making mobile sites.
+
+It takes (mostly) semantic markup and turns it into 
+something that looks as close as possible to a "native"
+app.
+
+Should work as a baseline for apps served in the traditional
+way - ie, served on demand - or as an offline app -
+ie, phonegap or otherwise archived on the phone.
+
+
