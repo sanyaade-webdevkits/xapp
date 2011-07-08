@@ -18,7 +18,6 @@ var XAPP = (function() {
 						$('div#application > #pages >  ul > li').each(function() { 
 							pages.push({title: $(this).attr('data-title'),offset: $(this).position().left,id: $(this).attr('id')});
 						});
-						
 							
 						// show the first page
 						$('div#application > #pages > ul > li:first-child').show();
