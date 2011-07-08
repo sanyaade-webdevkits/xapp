@@ -40,6 +40,10 @@ var XAPP = (function() {
 						$('div#application > #pages > ul').touchScroll();
 				
 						$('div#application > #pages > ul > li ul.list > li').live('click',function() {
+							
+							// remove all active indicators
+							$('div#application > #pages > ul > li ul.list > li').removeClass('active');
+
 							$(this).addClass('active');
 							if ($(this).attr('data-click')) { 
 								var event = $(this).attr('data-click');
@@ -130,7 +134,6 @@ var XAPP = (function() {
 			var prev_page = breadcrumbs.pop();
 			
 			var new_offset = prev_page.offset;
-			console.log(new_offset);
 			$('div#application > #pages >  ul').animate({
 				left: -new_offset,
 			},'fast',function() {

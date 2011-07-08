@@ -38,11 +38,39 @@
 	<link rel="stylesheet" type="text/css" href="css/xapp.css" />	
 
 	<script type="text/javascript" src="js/xapp.js"></script>
+	<script type="text/javascript" src="js/xapp-templates.js"></script>
+
 	<script type="text/javascript">
 		$(window).ready(function() { 
 			// boot up the mobification!
 			XAPP.boot();
 		});
+		
+		function loadFromAjax() {
+			console.log("YES");
+			$.getJSON('json.html',function(json) { 
+				console.log(json);
+				$('#dynamic').html('<ul class="list"></ul>');
+				for (var x in json.results) {
+					console.log(json.results[x]);
+					$('#dynamic ul').append(XAPP.TEMPLATES.list_item_image,json.results[x]);				
+				}
+				$('#dynamic ul.list li').unbind();
+				$('#dynamic ul.list li').bind('click',function() { 
+				
+					alert($(this).attr('data-id'));
+				});
+				XAPP.gotoPage(3);			
+			});
+			return false;
+		}
+		
+		function loadFromExternal() {
+		
+			$('#dynamic').load('external.html',function() {
+				XAPP.gotoPage(3);
+			});
+		}
 	</script>
 </head>
 <body>
@@ -54,14 +82,14 @@
 		</header>
 		<div id="pages">
 			<ul>
-				<li id="welcome" data-title="Tours">
+				<li id="welcome" data-title="Home">
 					<ul class="list">
 						<li data-click="XAPP.nextPage();">
 							<aside>
 								<img src="img/img.png" width="50" height="50">
 							</aside>
 							<span>
-								Summer 2011
+								Menu
 							</span>
 						</li>
 						<li data-click="XAPP.nextPage();">
@@ -69,7 +97,7 @@
 								<img src="img/img.png" width="50" height="50">
 							</aside>
 							<span>
-								Winter 2011
+								Menu
 							</span>
 						</li>
 						<li data-click="XAPP.nextPage();">
@@ -77,111 +105,75 @@
 								<img src="img/img.png" width="50" height="50">
 							</aside>
 							<span>
-								Spring 2012
+								Menu
+							</span>
+						</li>
+						<li data-click="loadFromExternal();">
+							<aside>
+								<img src="img/img.png" width="50" height="50">
+							</aside>
+							<span>
+								Load External Page
+							</span>
+						</li>
+						<li data-click="loadFromAjax();">
+							<aside>
+								<img src="img/img.png" width="50" height="50">
+							</aside>
+							<span>
+								Load Data via AJax
 							</span>
 						</li>
 
 					</ul>
 				</li>
-				<li id="second" data-title="Tour Dates">
-					<ul class="list">						
+				<li id="second" data-title="Another List">
+					<ul class="list">
 						<li data-click="XAPP.nextPage();">
 							<aside>
-								12 hours
+								<img src="img/img.png" width="50" height="50">
 							</aside>
 							<span>
-								Austin, TX
+								Menu
 							</span>
-						</li>
-						<li style="background: #CCC;">
-							<p>
-								And then 6 hours and 300 miles later...
-							</p>
 						</li>
 						<li data-click="XAPP.nextPage();">
 							<aside>
-								2 days
+								<img src="img/img.png" width="50" height="50">
 							</aside>
 							<span>
-								Dallas, TX
+								Menu
 							</span>
-						</li>
-						<li style="background: #F00;">
-							<h5 style="color: #FFFFCC;">WARNING: Short time, long distance!</h5>
-							<p>
-								And then 2 hours and 300 miles later...
-							</p>
 						</li>
 						<li data-click="XAPP.nextPage();">
 							<aside>
-								3 days
+								<img src="img/img.png" width="50" height="50">
 							</aside>
 							<span>
-								Ft Worth, TX
+								Menu
 							</span>
 						</li>
+
 					</ul>
 				</li>
-				<li id="third" data-title="Tour Stop">
-					<section id="tab1" data-title="Show Details">
+				<li id="third" data-title="Tabs">
+					<section id="tab1" data-title="Tab 1">
 						<div class="padded">
-							<p>
-								12 hours til Austin, TX
-							</p>
-							<p>Venue: Mohawk</p>
-							<div style="width: 100%; height: 50px; background:#FFFFCC;">
-							MAP
-							</div>
-							
-							<p>
-								Load in: 2pm
-							</p>
-							<p>Sound check: 4pm</p>
-							<p>
-								Doors: 9pm
-							</p>
-							<p>
-								Showtime: 12pm
-							</p>
-							
-							<h3>Contacts</h3>							
-						</div>
-						<ul class="list">
-							<li>
-								Chester Phillips / Phone / Email
-							</li>
-							<li>
-								Chester Phillips / Phone / Email
-							</li>
-							<li>
-								Chester Phillips / Phone / Email
-							</li>
-							<li>
-								Chester Phillips / Phone / Email
-							</li>
-						</ul>
-					</section>
-					<section id="tab2" data-title="Nearby Places">
-						<div class="padded">
-							<h3>Nearby places</h3>
-							
-							<p>This would show nearby spots from foursquare or something</p>
-							<p>Also, places you marked as faves</p>							
-							
+							Tab 1
 						</div>
 					</section>
-					<section id="tab3" data-title="Tasks">
+					<section id="tab2" data-title="Tab 2">
 						<div class="padded">
-							<h3>Tasks</h3>
-							
-							<p><input type="checkbox" /> Get Gear</p>
-							<p><input type="checkbox" /> Buy earplugs</p>
-							<p><input type="checkbox" /> New socks</p>
-	
+							Tab 2
+						</div>
+					</section>
+					<section id="tab3" data-title="Tab 3">
+						<div class="padded">
+							Tab 3
 						</div>
 					</section>
 				</li>
-				<li id="dynamic" data-title="Foo">
+				<li id="dynamic" data-title="External">
 				</li>
 			</ul>
 		</div>
