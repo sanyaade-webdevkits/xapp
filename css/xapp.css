@@ -40,8 +40,7 @@
 			visibility: hidden;
 			
 		}
-		
-		
+	
    		div#application > #pages > ul > li  ul.list li.active { 
 			background: #2c7ae5;
 			color: #FFF;
@@ -54,6 +53,14 @@
 			height: 100%; 
 			margin-right: 13px; 
 		} 
+
+
+		/* Authentication Details */
+		
+		div#application .loggedout { display:none; }
+		div#application.loggedout .loggedout { display: block; }
+
+
 		
 		
 		/* Alert Pops */
