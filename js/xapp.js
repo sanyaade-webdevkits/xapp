@@ -110,15 +110,13 @@ var XAPP = (function() {
 					res = eval(event);			
 				}
 	
-				if (res) {
-					// activate this tab
-					$('#' + tab).show();
-					$(this).addClass('active');
-					
-					if ($('#'+tab).attr('data-after')) {
-						var event = $('#'+tab).attr('data-after');
-						res = eval(event);			
-					}
+				// activate this tab
+				$('#' + tab).show();
+				$(this).addClass('active');
+				
+				if ($('#'+tab).attr('data-after')) {
+					var event = $('#'+tab).attr('data-after');
+					res = eval(event);			
 				}
 				XAPP.pageResizer(id);	
 			},
