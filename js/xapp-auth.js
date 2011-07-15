@@ -42,11 +42,16 @@ XAPP.AUTH = function() {
 				if (json.status=='success') {
 					$('div#application').addClass('loggedin');
 					createCookie(auth_cookie_name,json.auth,json.days);
-					success(json);
+					
+					if (success) {
+						success(json);
+					}
 				} else {
 					$('div#application').addClass('loggedout');
 					XAPP.alert(json.error,null,{type:'error'});
-					fail(json);
+					if (fail) {
+						fail(json);
+					}
 				}
 			});
 			return false;
@@ -58,11 +63,15 @@ XAPP.AUTH = function() {
 				if (json.status=='success') {
 					$('div#application').addClass('loggedin');
 					createCookie(auth_cookie_name,json.auth,json.days);
-					success(json);
+					if (success) {
+						success(json);
+					}
 				} else {
 					$('div#application').addClass('loggedout');
 					XAPP.alert(json.error,null,{type:'error'});
-					fail(json);
+					if (fail) {
+						fail(json);
+					}
 				}
 			});
 			return false;
@@ -72,7 +81,9 @@ XAPP.AUTH = function() {
 			$.post(api_endpoint+'/logout',function(json) {
 				$('div#application').addClass('loggedout');
 		    	eraseCookie(auth_cookie_name);
-		    	callback();
+		    	if (callback) {
+			    	callback();
+			    }
 			});
 			return false;
 		},

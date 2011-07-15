@@ -60,6 +60,9 @@
 		div#application .loggedout { display:none; }
 		div#application.loggedout .loggedout { display: block; }
 
+		div#application .loggedin { display:none; }
+		div#application.loggedin .loggedin { display: block; }
+
 
 		
 		
