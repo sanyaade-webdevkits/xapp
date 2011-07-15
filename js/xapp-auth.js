@@ -38,7 +38,7 @@ XAPP.AUTH = function() {
 		login: function(success,fail) {
 		
 		    var data= $('form[action="#login"]').serialize();
-			$.post(api_endpoint+'/login',function(json) {
+			$.post(api_endpoint+'/login',data,function(json) {
 				if (json.status=='success') {
 					$('div#application').addClass('loggedin');
 					createCookie(auth_cookie_name,json.auth,json.days);
@@ -59,7 +59,7 @@ XAPP.AUTH = function() {
 		join: function(success,fail) {
 		
 		    var data= $('form[action="#join"]').serialize();
-			$.post(api_endpoint+'/join',function(json) {
+			$.post(api_endpoint+'/join',data,function(json) {
 				if (json.status=='success') {
 					$('div#application').addClass('loggedin');
 					createCookie(auth_cookie_name,json.auth,json.days);
