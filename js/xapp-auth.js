@@ -38,22 +38,28 @@ XAPP.AUTH = function() {
 		login: function(success,fail) {
 		
 		    var data= $('form[action="#login"]').serialize();
-			$.post(api_endpoint+'/login',data,function(json) {
-				alert(json.status);
-				if (json.status=='success') {
-					$('div#application').addClass('loggedin');
-					createCookie(auth_cookie_name,json.auth,json.days);
-					
-					if (success) {
-						success(json);
-					}
-				} else {
-					$('div#application').addClass('loggedout');
-					XAPP.alert(json.error,null,{type:'error'});
-					if (fail) {
-						fail(json);
-					}
-				}
+			$.ajax(
+				{
+					url:api_endpoint+'/login',
+					data: data,
+					dataType: 'json',
+					type: 'post',
+					success: function(json) {
+								if (json.status=='success') {
+									$('div#application').addClass('loggedin');
+									createCookie(auth_cookie_name,json.auth,json.days);
+									
+									if (success) {
+										success(json);
+									}
+								} else {
+									$('div#application').addClass('loggedout');
+									XAPP.alert(json.error,null,{type:'error'});
+									if (fail) {
+										fail(json);
+									}
+								}
+						}
 			});
 			return false;
 		},
