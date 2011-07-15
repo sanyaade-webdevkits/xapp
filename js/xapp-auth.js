@@ -27,7 +27,7 @@ XAPP.AUTH = function() {
 			return null;
 		},
 		eraseCookie: function(name) {
-			createCookie(name,"",-1);
+			this.createCookie(name,"",-1);
 		},
 		isAuthenticated: function() {
 			if (this.readCookie(auth_cookie_name)) {
@@ -100,6 +100,8 @@ XAPP.AUTH = function() {
 				dataType: 'json',
 				success: function(json) {
 					$('div#application').addClass('loggedout');
+					$('div#application').removeClass('loggedin');
+
 			    	XAPP.AUTH.eraseCookie(auth_cookie_name);
 			    	if (callback) {
 				    	callback();
