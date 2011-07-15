@@ -39,15 +39,24 @@
 
 	<script type="text/javascript" src="js/xapp.js"></script>
 	<script type="text/javascript" src="js/xapp-templates.js"></script>
+	<script type="text/javascript" src="js/xapp-auth.js"></script>
 
 	<script type="text/javascript">
 		$(window).ready(function() { 
 			// boot up the mobification!
 			XAPP.boot();
+			XAPP.AUTH.boot('http://damien.xoxco.com/tester/auth_api');
+			$('#login_button').bind('click',function() {
+				XAPP.AUTH.login(function(json) {
+					XAPP.prevPage();
+				},function(json) {
+					//alert("FAILED");
+				});
+				return false;
+			});
 		});
 		
 		function loadFromAjax() {
-			console.log("YES");
 			$.getJSON('json.html',function(json) { 
 				console.log(json);
 				$('#dynamic').html('<ul class="list"></ul>');
@@ -79,6 +88,13 @@
 			<ul>
 				<li id="welcome" data-title="Home">
 					<ul class="list">
+						<li data-click="XAPP.gotoPage(4);" class="loggedout">
+							Login
+						</li>
+						<li data-click="XAPP.AUTH.logout();" class="loggedin">
+							Logout
+						</li>
+
 						<li data-click="XAPP.nextPage();">
 							<aside>
 								<img src="img/img.png" width="50" height="50">
@@ -113,6 +129,7 @@
 							<aside>
 								<img src="img/img.png" width="50" height="50">
 							</aside>
+
 							Error Alert
 						</li>
 						<li data-click="loadFromExternal();">
@@ -182,6 +199,50 @@
 				</li>
 				<li id="dynamic" data-title="External">
 				</li>
+    			<li id="login" data-title="login">
+					<div class="padded">
+           				  <form action="#login">
+              			  <h3>Login</h3>
+			              <p>
+			                <label for="email">Your Email:</label><br />
+			                <input class="required email text" type="email" name="email" size="20" />
+			              </p>
+			              <p>
+			                <label for="password">Choose a Password:</label><br />
+			                <input class="required text" name="password" type="password" />
+			              </p>
+			              <p>
+			                <label for="remember_me">Remember Me:</label><br />
+			                  <input type="checkbox" name="remember_me" value="true" checked />
+			              </p>
+			              <button id="login_button" class="auth_button">Login</button>
+			            </form>
+					</div>
+			    </li>
+			    <li id="join" data-title="join">
+					<div class="padded">
+			        <form id="join_modal_form" action="#join">
+			            <h3>Join</h3>
+			            <p>
+			              <label for="name">Your Name:</label><br />
+			              <input class="required text" name="name" type="text" size="20" maxlength="20"/>
+			            </p>
+			            <p>
+			              <label for="email">Your Email:</label><br />
+			              <input class="required email text" type="email" name="email" />
+			            </p>
+			            <p>
+			                <label for="password">Choose a Password:</label><br />
+			                <input class="required text" name="password" type="password" />
+			            </p>
+			            <p>
+			              <label for="remember_me">Remember Me:</label><br />
+			              <input type="checkbox" name="remember_me" value="true" checked />
+			            </p>
+			            <button id="join_button"class="auth_button">Join</button>
+			        </form>
+					</div>
+			    </li>
 			</ul>
 		</div>
 

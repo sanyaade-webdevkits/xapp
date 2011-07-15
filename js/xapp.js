@@ -156,8 +156,10 @@ var XAPP = (function() {
 			});
 			return false;
 		},
-		gotoPage: function(x) {
-			breadcrumbs.push({title:  pages[current_page].title, index: current_page, offset: pages[current_page].offset});
+		gotoPage: function(x,no_history) {
+			if (!no_history) {
+				breadcrumbs.push({title:  pages[current_page].title, index: current_page, offset: pages[current_page].offset});
+			}
 			var new_offset = pages[x].offset;
 			$('div#application > #pages > ul').animate({
 				left: -new_offset,
