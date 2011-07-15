@@ -80,6 +80,7 @@
 				This is the top toolbar where the back button and title will appear.
 			-->
 		</header>
+		<div id="alerts"></div>
 		<div id="pages">
 			<ul>
 				<li id="welcome" data-title="Home">
@@ -107,6 +108,12 @@
 							<span>
 								Menu
 							</span>
+						</li>
+						<li data-click="XAPP.alert('This is a normal message that is a bit longer than ');">
+							Alert
+						</li>
+						<li data-click="XAPP.alert('This is a error alert',function() { alert('Clicked'); },{type:'error',buttonLabel:'NO!!'});">
+							Error Alert
 						</li>
 						<li data-click="loadFromExternal();">
 							<aside>

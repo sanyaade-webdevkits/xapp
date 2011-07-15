@@ -160,4 +160,70 @@
  		div#application > footer >     a.active > strong{
         color:                  #fff;
       }
+     
+#alerts{
+	width: 320px;
+	position: fixed;
+	bottom: 0px;
+	/*display: none;*/
+	text-align: center;
+	 position: fixed;
+ 	left: 0px;
+ 	z-index: 997;
+}
+#alert_message{
+
+	z-index: 999;
+	position: fixed;
+	bottom: 0px;
+	width: 290px;
+	margin: auto 10px;
+}
+#alert_message p{
+
+	text-align: center;
+	background: #f0f0f0;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	padding: 5px;
+}
+#alert_background{
+	background-color: #ccc;
+	opacity:0.80;
+	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+	filter: alpha(opacity=80);
+	z-index: 998;
+	
+}
+a.css3button {
+	text-decoration:none;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #050505;
+	padding: 10px 20px;
+	background: -moz-linear-gradient(
+		top,
+		#bfc0c7 0%,
+		#f0f0f0);
+	background: -webkit-gradient(
+		linear, left top, left bottom, 
+		from(#bfc0c7),
+		to(#f0f0f0));
+	border-radius: 30px;
+	-moz-border-radius: 30px;
+	-webkit-border-radius: 30px;
+	border: 1px solid #000000;
+	-moz-box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 1px rgba(255,255,255,0.7);
+	-webkit-box-shadow:
+		0px 1px 3px rgba(000,000,000,0.5),
+		inset 0px 0px 1px rgba(255,255,255,0.7);
+	text-shadow:
+		0px -1px 0px rgba(000,000,000,0.4),
+		0px 1px 0px rgba(255,255,255,0.3);
+}
+
+
 

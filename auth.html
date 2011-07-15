@@ -34,7 +34,7 @@
 	<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
 	<script type="text/javascript" src="js/jquery.template.js"></script>
 	<script type="text/javascript" src="js/touch-scroll.min.js"></script>
- <script type="text/javascript" src="js/auth.js"></script>
+ 	<script type="text/javascript" src="js/auth.js"></script>
  
 	<link rel="stylesheet" type="text/css" href="css/xapp.css" />	
 
@@ -43,12 +43,10 @@
 
 	<script type="text/javascript">
 		$(window).ready(function() { 
-			// boot up the mobification!
 			XAPP.boot();
 		});
 		
 		function loadFromAjax() {
-			console.log("YES");
 			$.getJSON('json.html',function(json) { 
 				console.log(json);
 				$('#dynamic').html('<ul class="list"></ul>');
@@ -73,17 +71,20 @@
 			});
 		}
 
-  function updateAuthStatus(){
-    if(readCookie('pp_auth')){
-        $('#join_link').hide();
-        $('#login_link').hide();
-        $('#logout_link').show();
-    }else{
-        $('#join_link').show();
-        $('#login_link').show();
-        $('#logout_link').hide();
-    }
-  }
+		function testAlertCallback(){
+			alert("totally closed that alert");
+		}
+		
+		if(readCookie('pp_auth')){
+		    $('#join_link').hide();
+		    $('#login_link').hide();
+		    $('#logout_link').show();
+		}else{
+		    $('#join_link').show();
+		    $('#login_link').show();
+		    $('#logout_link').hide();
+		}
+
 	</script>
 </head>
 <body>
@@ -92,92 +93,125 @@
 			<!-- 
 				This is the top toolbar where the back button and title will appear.
 			-->
-		</header>
+		</header>	
+		<div id="alerts"></div>
 		<div id="pages">
 			<ul>
 				<li id="welcome" data-title="Home">
 					<ul class="list">
-						<li id="login_link" data-click="XAPP.gotoPage(1);">
+						<li id="login_li" data-click="XAPP.gotoPage(1);">
 							<aside>
 								<img src="img/img.png" width="50" height="50">
 							</aside>
 							<span>
-								login
+							    Login
 							</span>
-     </li>
-      <li id="join_link" data-click="XAPP.gotoPage(2);">
-       <aside>
-         <img src="img/img.png" width="50" height="50">
-       </aside>
-       <span>
-           Join
-       </span>
-      </li>
-      <li id="logout" data-click="">
-       <aside>
-         <img src="img/img.png" width="50" height="50">
-       </aside>
-       <span>
-        Logout
-       </span>
-      </li>
-   </ul>
+     					</li>
+      					<li id="join_li" data-click="XAPP.gotoPage(2);">
+       						<aside>
+         						<img src="img/img.png" width="50" height="50">
+       						</aside>
+       						<span>
+           						Join
+      						 </span>
+      					</li>
+      					<li id="logout_li" data-click="logoutByModal();">
+       						<aside>
+         						<img src="img/img.png" width="50" height="50">
+       						</aside>
+       						<span>
+        						Logout
+       						</span>
+      					</li>
+      					<li id="" data-click="XAPP.alert('oh shit', null, {'type': 'error'});">
+       						<aside>
+         						<img src="img/img.png" width="50" height="50">
+       						</aside>
+       						<span>
+        						Error Message
+       						</span>
+      					</li>
+      					<li data-click="XAPP.alert('whats up?');">
+       						<aside>
+         						<img src="img/img.png" width="50" height="50">
+       						</aside>
+       						<span>
+        						General Alert
+       						</span>
+      					</li>
+      					<li id="" data-click="XAPP.alert('callback on close', testAlertCallback);">
+       						<aside>
+         						<img src="img/img.png" width="50" height="50">
+       						</aside>
+       						<span>
+        						Alert with callback
+       						</span>
+      					</li>
+      					<li data-click="">
+       						<aside>
+         						<img src="img/img.png" width="50" height="50">
+       						</aside>
+       						<span>
+        						Extra
+       						</span>
+      					</li>
+   					</ul>   					
 				</li>
-    <li id="login" data-title="login">
-        <ul class="list">
-          <li>
-            <form id="login_modal_form">
-              <h3>Login</h3>
-              <p>
-                <label for="email">Your Email:</label><br />
-                <input class="required email text" type="email" name="email" size="20" />
-              </p>
-              <p>
-                <label for="password">Choose a Password:</label><br />
-                <input class="required text" name="password" type="password" />
-              </p>
-              <p>
-                <label for="remember_me">Remember Me:</label><br />
-                  <input type="checkbox" name="remember_me" value="true" checked />
-              </p>
-              <button id="login_button" class="auth_button">Login</button>
-            </form>
-          </li>
-        </ul>
-    </li>
-    <li id="join" data-title="Join">
-      <ul class="list">
-        <li>
-        <form id="join_modal_form">
-            <h3>Join</h3>
-            <p>
-              <label for="name">Your Name:</label><br />
-              <input class="required text" name="name" type="text" size="20" maxlength="20"/>
-            </p>
-            <p>
-              <label for="email">Your Email:</label><br />
-              <input class="required email text" type="email" name="email" />
-            </p>
-            <p>
-                <label for="password">Choose a Password:</label><br />
-                <input class="required text" name="password" type="password" />
-            </p>
-            <p>
-              <label for="remember_me">Remember Me:</label><br />
-              <input type="checkbox" name="remember_me" value="true" checked />
-            </p>
-            <button id="join_button"class="auth_button">Join</button>
-        </form>
-        </li>
-      </ul>
-    </li>
-   </ul>
+    			<li id="login" data-title="login">
+        			<ul>
+          				<li>
+           				  <form id="login_modal_form">
+              			  <h3>Login</h3>
+			              <p>
+			                <label for="email">Your Email:</label><br />
+			                <input class="required email text" type="email" name="email" size="20" />
+			              </p>
+			              <p>
+			                <label for="password">Choose a Password:</label><br />
+			                <input class="required text" name="password" type="password" />
+			              </p>
+			              <p>
+			                <label for="remember_me">Remember Me:</label><br />
+			                  <input type="checkbox" name="remember_me" value="true" checked />
+			              </p>
+			              <button id="login_button" class="auth_button">Login</button>
+			            </form>
+			          </li>		
+			        </ul>
+			    </li>
+			    <li id="join" data-title="join">
+			      <ul>
+			        <li>
+			        <form id="join_modal_form">
+			            <h3>Join</h3>
+			            <p>
+			              <label for="name">Your Name:</label><br />
+			              <input class="required text" name="name" type="text" size="20" maxlength="20"/>
+			            </p>
+			            <p>
+			              <label for="email">Your Email:</label><br />
+			              <input class="required email text" type="email" name="email" />
+			            </p>
+			            <p>
+			                <label for="password">Choose a Password:</label><br />
+			                <input class="required text" name="password" type="password" />
+			            </p>
+			            <p>
+			              <label for="remember_me">Remember Me:</label><br />
+			              <input type="checkbox" name="remember_me" value="true" checked />
+			            </p>
+			            <button id="join_button"class="auth_button">Join</button>
+			        </form>
+			        </li>
+			      </ul>
+			    </li>
+			  </ul>
 		</div>
 		<footer>
 			<!--
 				This is the footer bar that appears when tabs are used.
 			-->
 		</footer>
-	</div>		
+	</div>	
 </body>
 </html>

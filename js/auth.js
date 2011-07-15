@@ -1,65 +1,25 @@
 $(document).ready(function(){
-        //select all the a tag with name equal to modal
-        $('a[name=modal]').click(function(e) {
-            //Cancel the link behavior
-            e.preventDefault();
-            //Get the A tag
-            var id = $(this).attr('href');
 
-            //Get the screen height and width
-            var maskHeight = $(document).height();
-            var maskWidth = $(window).width();
-
-            //Set height and width to mask to fill up the whole screen
-            $('#mask').css({'width':maskWidth,'height':maskHeight});
-
-            //transition effect
-            $('#mask').fadeIn("fast");
-            $('#mask').fadeTo("fast", 0.7);
-
-            //Get the window height and width
-            var winH = $(window).height();
-            var winW = $(window).width();
-
-            //Set the popup window to center
-            $(id).css('top',  winH/2-$(id).height()/2);
-            $(id).css('left', winW/2-$(id).width()/2);
-
-            //transition effect
-            $(id).fadeIn("fast");
-
-        });
-
-        //if close button is clicked
-        $('.window .close').click(function (e) {
-            //Cancel the link behavior
-            e.preventDefault();
-            $('#mask, .window').hide();
-        });
-
-        //if mask is clicked
-        $('#mask').click(function () {
-            $(this).hide();
-            $('.window').hide();
-        });
-
-        //bind button clicks for form
-
-        $('#login_button').click(logByModal);
-        $('#join_button').click(joinByModal);
-
-    $('a[href="#logout"]').click(logoutByModal);
-
-    $('a[href="#join"]').click(function(){
-
-    });
-
+	//place #alerts near the bottom of the screen
+	
+	//siteRoot should be the authorizing server page
+	siteRoot= "http://damien.xoxco.com/tester/auth_api";
+	
+	if(readCookie('pp_auth')){
+		$('#login_li').hide();
+		$('#join_li').hide();
+	}else{
+		$('#logout_li').hide();
+	}
+	
+    $('#login_button').click(logByModal);
+    $('#join_button').click(joinByModal);
 });
 
 ////modal auth stuff
 function logByModal(){
 
-    var url= siteRoot+"/auth_api?command=login";
+    var url= siteRoot+"/login";
     var data= $('#login_modal_form').serialize();
 
     $.post(url, data, function(json){
@@ -67,7 +27,7 @@ function logByModal(){
             createCookie('pp_auth', json.auth, json.days);
             window.location.reload();
         }else{
-            //some failure msg
+           XAPP.alert(json.error, function(){ console.log(json.status);}, {"type": 'error'});
         }
     }, 'json');
 
@@ -75,7 +35,7 @@ function logByModal(){
 }
 
 function joinByModal(){
-    var url= siteRoot+"/auth_api?command=join";
+    var url= siteRoot+"/join";
     var data= $('#join_modal_form').serialize();
 
     $.post(url, data, function(json){
@@ -83,19 +43,22 @@ function joinByModal(){
             createCookie('pp_auth', json.auth, json.days);
             window.location.reload();
         }else{
-            //failure message
+            alert(json.error);
         }
     }, 'json');
     return false;
 }
 
 function logoutByModal(){
-    var url= siteRoot+"/auth_api?command=logout";
+    url= siteRoot+"/logout";
+
     $.post(url, function(json){
+    	eraseCookie('pp_auth');
         window.location.reload();
     });
 }
 
+//cookie stuff
 function createCookie(name,value,days) {
 	if (days) {
 		var date = new Date();
