@@ -57,6 +57,8 @@
 		});
 		
 		function loadFromAjax() {
+			XAPP.alert('loading', null, {'template': 'loading'});
+
 			$.getJSON('json.html',function(json) { 
 				console.log(json);
 				$('#dynamic').html('<ul class="list"></ul>');
@@ -70,14 +72,16 @@
 					alert($(this).attr('data-id'));
 				});
 				XAPP.gotoPage(3);			
+				XAPP.resetAlert();
 			});
 			return false;
 		}
 		
 		function loadFromExternal() {
-		
+			XAPP.alert('loading', null, {'template': 'loading'});
 			$('#dynamic').load('external.html',function() {
 				XAPP.gotoPage(3);
+				XAPP.resetAlert();
 			});
 		}
 	</script>
@@ -132,6 +136,18 @@
 
 							Error Alert
 						</li>
+						<li data-click="XAPP.alert('loading', null, {'template': 'loading'});">
+							<aside>
+								<img src="img/img.png" width="50" height="50">
+							</aside>
+							Loading Indicator
+						</li>
+						<li data-click="XAPP.resetAlert()">
+							<aside>
+								<img src="img/img.png" width="50" height="50">
+							</aside>
+							Reset Alert
+						</li>	
 						<li data-click="loadFromExternal();">
 							<aside>
 								<img src="img/img.png" width="50" height="50">
