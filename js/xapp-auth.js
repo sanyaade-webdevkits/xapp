@@ -47,7 +47,7 @@ XAPP.AUTH = function() {
 					success: function(json) {
 								if (json.status=='success') {
 									$('div#application').addClass('loggedin');
-									createCookie(auth_cookie_name,json.auth,json.days);
+									XAPP.AUTH.createCookie(auth_cookie_name,json.auth,json.days);
 									
 									if (success) {
 										success(json);
