@@ -40,16 +40,16 @@ var XAPP = (function() {
 				
 						$('div#application > #pages > ul > li ul.list > li').live('click',function() {
 							
-							// remove all active indicators
-							$('div#application > #pages > ul > li ul.list > li').removeClass('active');
-
+						// remove all active indicators
+						$('div#application > #pages > ul > li ul.list > li').removeClass('active');
+						
 							$(this).addClass('active');
 							if ($(this).attr('data-click')) { 
 								var event = $(this).attr('data-click');
 								eval(event);
 							}
 						});
-				
+					
 						this.updateToolbar();
 					},		
 				updateToolbar: function() {
@@ -104,30 +104,17 @@ var XAPP = (function() {
 				$(id + ' > section').hide();
 	
 				$('div#application > #pages > ul').touchScroll('setPosition', 0);
-				var res = true;
-				if ($('#'+tab).attr('data-before')) {
-					var event = $('#'+tab).attr('data-before');
-					res = eval(event);			
-				}
 	
-				if (res) {
-					// activate this tab
-					$('#' + tab).show();
-					$(this).addClass('active');
-					
-					if ($('#'+tab).attr('data-after')) {
-						var event = $('#'+tab).attr('data-after');
-						res = eval(event);			
-					}
-				}
-				XAPP.pageResizer(id);	
-			},
-		 pageResizer: function(id) {		 
- 				$('div#application > #pages > ul').touchScroll({scrollHeight:$(id).outerHeight(true)});
+				// activate this tab
+				$(this).addClass('active');
+				$('#' + tab).show();
+	
+				$('div#application > #pages > ul').touchScroll({scrollHeight:$(id).outerHeight(true)});
 				$('div#application > #pages > ul').touchScroll('update');
 				$('div#application > #pages > ul').touchScroll('setPosition', 0);
-
-		 },
+	
+			},
+		
 		 nextPage: function() {			
 			breadcrumbs.push({title:  pages[current_page].title, index: current_page, offset: pages[current_page].offset});
 			
@@ -163,6 +150,40 @@ var XAPP = (function() {
 				current_page = x;
 				XAPP.updateToolbar();
 			});
+			return false;
+		},
+		//options is an optional obj with a field type 'error'
+		alert: function(msg, callback, options){
+			
+			if(!options){
+				var options= {'msg': msg};
+			}else{
+				options.msg= msg;
+			}
+			
+			if($('#alerts').html()){
+				XAPP.resetAlert();	
+			}
+			
+			$('#alerts').append(XAPP.TEMPLATES.alert, options);
+			
+			$('#alert_background, #alert_message').height(window.innerHeight/2);
+			
+			if(options.type== 'error'){
+				$('#alert_background').css('background-color', '#ff56aa');
+			}
+			$('#alerts').show();	
+					
+			if(typeof(callback)== 'function'){
+
+				$('a[href="#dismiss"]').click(callback);
+			}	
+			$('a[href="#dismiss"]').click(XAPP.resetAlert);
+		},
+		//reset alert
+		resetAlert: function(){
+		
+			$('#alerts').html('');
 			return false;
 		}
 	}
