@@ -171,6 +171,7 @@ var XAPP = (function() {
 		alert: function(msg, callback, options){
 			
 			var options = jQuery.extend({
+				template: 'alert',
 				message:msg,
 				type:'alert',
 				buttonLabel:'OK',
@@ -180,15 +181,18 @@ var XAPP = (function() {
 			if($('#alerts').html()){
 				XAPP.resetAlert();	
 			}
+			$('#alerts').append(XAPP.TEMPLATES[options.template], options);
 			
-			$('#alerts').append(XAPP.TEMPLATES.alert, options);
+			if(options.template== 'loading'){
+				$('#alerts, #alert_message').css('bottom', window.innerHeight/2.5 );
+				$('#alert_background, #alert_message').height(window.innerHeight/3);
+			}else{
+				$('#alert_background, #alert_message').height(window.innerHeight/2);
+			}
 			
-			$('#alert_background, #alert_message').height(window.innerHeight/2);
-
 			$('#alerts').show();	
 					
 			if(typeof(callback)== 'function'){
-
 				$('a[href="#dismiss"]').click(callback);
 			}	
 			$('a[href="#dismiss"]').click(XAPP.resetAlert);
@@ -197,6 +201,7 @@ var XAPP = (function() {
 		resetAlert: function(){
 		
 			$('#alerts').html('');
+			$('#alerts, #alert_message').css('bottom', 0);
 			return false;
 		}
 	}

@@ -16,7 +16,6 @@
 			background: -moz-linear-gradient(top, #333 0%, #111 100%); 
 			background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.55)), color-stop(0.2, rgba(255, 255, 255, 0.35)), color-stop(0.5, rgba(255, 255, 255, 0.1)), color-stop(0.5, transparent), to(transparent) ); 
 			color: #FFF; 
-
 		} 
 
 		div#application > #pages > ul > li ul.list li { 
@@ -41,7 +40,6 @@
 			
 		}
 		
-		
    		div#application > #pages > ul > li  ul.list li.active { 
 			background: #2c7ae5;
 			color: #FFF;
@@ -54,7 +52,6 @@
 			height: 100%; 
 			margin-right: 13px; 
 		} 
-		
 		
 		/* Alert Pops */
 					
@@ -69,7 +66,6 @@
 		 	z-index: 997;
 		}
 		#alert_message{
-		
 			z-index: 999;
 			position: fixed;
 			bottom: 0px;
@@ -126,14 +122,21 @@
 				0px -1px 0px rgba(000,000,000,0.4),
 				0px 1px 0px rgba(255,255,255,0.3);
 		}
-		
-		
 
-
+		.loading_icon {
+		-webkit-animation: cssAnimation 1s infinite linear;
+		-moz-animation: cssAnimation 1s infinite linear;
+		}
+		@-webkit-keyframes cssAnimation {
+		from { -webkit-transform: rotate(0deg) scale(1) skew(1deg) translate(0px); }
+		to { -webkit-transform: rotate(360deg) scale(1) skew(1deg) translate(0px); }
+		}
+		@-moz-keyframes cssAnimation {
+		from { -moz-transform: rotate(0deg) scale(1) skew(1deg) translate(0px); }
+		to { -moz-transform: rotate(360deg) scale(1) skew(1deg) translate(0px); }
+		}		
 		/* Cool Header styles from 	http://www.cagintranet.com/archive/create-an-ios-header-bar-in-css3-and-html5/ */
 
-		
-		
 		div#application > header h1 {  
 			margin:0px;
 			 padding:5px 0 5px 0;text-align:center; 
