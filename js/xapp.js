@@ -105,17 +105,30 @@ var XAPP = (function() {
 				$(id + ' > section').hide();
 	
 				$('div#application > #pages > ul').touchScroll('setPosition', 0);
+				var res = true;
+				if ($('#'+tab).attr('data-before')) {
+					var event = $('#'+tab).attr('data-before');
+					res = eval(event);			
+				}
 	
-				// activate this tab
-				$(this).addClass('active');
-				$('#' + tab).show();
-	
-				$('div#application > #pages > ul').touchScroll({scrollHeight:$(id).outerHeight(true)});
+				if (res) {
+					// activate this tab
+					$('#' + tab).show();
+					$(this).addClass('active');
+					
+					if ($('#'+tab).attr('data-after')) {
+						var event = $('#'+tab).attr('data-after');
+						res = eval(event);			
+					}
+				}
+				XAPP.pageResizer(id);	
+			},
+		 pageResizer: function(id) {		 
+ 				$('div#application > #pages > ul').touchScroll({scrollHeight:$(id).outerHeight(true)});
 				$('div#application > #pages > ul').touchScroll('update');
 				$('div#application > #pages > ul').touchScroll('setPosition', 0);
-	
-			},
-		
+
+		 },
 		 nextPage: function() {			
 			breadcrumbs.push({title:  pages[current_page].title, index: current_page, offset: pages[current_page].offset});
 			
