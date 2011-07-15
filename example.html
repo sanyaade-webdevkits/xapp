@@ -75,12 +75,6 @@
 </head>
 <body>
 	<div id="application">
-		<header>
-			<!-- 
-				This is the top toolbar where the back button and title will appear.
-			-->
-		</header>
-		<div id="alerts"></div>
 		<div id="pages">
 			<ul>
 				<li id="welcome" data-title="Home">
@@ -110,9 +104,15 @@
 							</span>
 						</li>
 						<li data-click="XAPP.alert('This is a normal message that is a bit longer than ');">
+							<aside>
+								<img src="img/img.png" width="50" height="50">
+							</aside>
 							Alert
 						</li>
 						<li data-click="XAPP.alert('This is a error alert',function() { alert('Clicked'); },{type:'error',buttonLabel:'NO!!'});">
+							<aside>
+								<img src="img/img.png" width="50" height="50">
+							</aside>
 							Error Alert
 						</li>
 						<li data-click="loadFromExternal();">
@@ -184,11 +184,7 @@
 				</li>
 			</ul>
 		</div>
-		<footer>
-			<!--
-				This is the footer bar that appears when tabs are used.
-			-->
-		</footer>
+
 	</div>		
 </body>
 </html>

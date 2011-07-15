@@ -14,6 +14,11 @@ var XAPP = (function() {
 		
 			return {
 				boot: function() { 
+				
+						// add a header, footer, and alerts holder.
+						$('div#application').prepend('<header></header><div id="alerts"></div>');
+						$('div#application').append('<footer></footer>');
+				
 						// suck all the current pages into an array so we know where we are.
 						$('div#application > #pages >  ul > li').each(function() { 
 							pages.push({title: $(this).attr('data-title'),offset: $(this).position().left,id: $(this).attr('id')});
@@ -165,7 +170,6 @@ var XAPP = (function() {
 		//options is an optional obj with a field type 'error'
 		alert: function(msg, callback, options){
 			
-			console.log("HELLO");
 			var options = jQuery.extend({
 				message:msg,
 				type:'alert',
@@ -179,10 +183,7 @@ var XAPP = (function() {
 			$('#alerts').append(XAPP.TEMPLATES.alert, options);
 			
 			$('#alert_background, #alert_message').height(window.innerHeight/2);
-			
-			if(options.type== 'error'){
-				$('#alert_background').css('background-color', '#ff56aa');
-			}
+
 			$('#alerts').show();	
 					
 			if(typeof(callback)== 'function'){
