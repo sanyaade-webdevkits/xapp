@@ -45,7 +45,7 @@
 		$(window).ready(function() { 
 			// boot up the mobification!
 			XAPP.boot();
-			XAPP.AUTH.boot('http://damien.xoxco.com/test/auth_api');
+			XAPP.AUTH.boot('http://damien.xoxco.com/mobile_tester/auth_api');
 			$('#login_button').bind('click',function() {
 				XAPP.AUTH.login(function(json) {
 					XAPP.gotoPage(0);
