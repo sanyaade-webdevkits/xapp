@@ -46,6 +46,7 @@ XAPP.AUTH = function() {
 					type: 'post',
 					success: function(json) {
 								if (json.status=='success') {
+									$('div#application').removeClass('loggedout');
 									$('div#application').addClass('loggedin');
 									XAPP.AUTH.createCookie(auth_cookie_name,json.auth,json.days);
 									
@@ -54,6 +55,7 @@ XAPP.AUTH = function() {
 									}
 								} else {
 									$('div#application').addClass('loggedout');
+									$('div#application').removeClass('loggedin');
 									XAPP.alert(json.error,null,{type:'error'});
 									if (fail) {
 										fail(json);
@@ -66,18 +68,26 @@ XAPP.AUTH = function() {
 		join: function(success,fail) {
 		
 		    var data= $('form[action="#join"]').serialize();
-			$.post(api_endpoint+'/join',data,function(json) {
-				if (json.status=='success') {
-					$('div#application').addClass('loggedin');
-					createCookie(auth_cookie_name,json.auth,json.days);
-					if (success) {
-						success(json);
-					}
-				} else {
-					$('div#application').addClass('loggedout');
-					XAPP.alert(json.error,null,{type:'error'});
-					if (fail) {
-						fail(json);
+			$.ajax({
+				url: api_endpoint+'/join',
+				data: data,
+				dataType: 'json',
+				type: 'post',
+				success: function(json) {
+					if (json.status=='success') {
+						$('div#application').removeClass('loggedout');
+						$('div#application').addClass('loggedin');
+						XAPP.AUTH.createCookie(auth_cookie_name,json.auth,json.days);
+						if (success) {
+							success(json);
+						}
+					} else {
+						$('div#application').addClass('loggedout');
+						$('div#application').removeClass('loggedin');
+						XAPP.alert(json.error,null,{type:'error'});
+						if (fail) {
+							fail(json);
+						}
 					}
 				}
 			});
@@ -85,11 +95,15 @@ XAPP.AUTH = function() {
 		},
 		logout: function(callback) {
 		
-			$.post(api_endpoint+'/logout',function(json) {
-				$('div#application').addClass('loggedout');
-		    	eraseCookie(auth_cookie_name);
-		    	if (callback) {
-			    	callback();
+			$.ajax({
+				url: api_endpoint+'/logout',
+				dataType: 'json',
+				success: function(json) {
+					$('div#application').addClass('loggedout');
+			    	XAPP.AUTH.eraseCookie(auth_cookie_name);
+			    	if (callback) {
+				    	callback();
+				    }
 			    }
 			});
 			return false;
