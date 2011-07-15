@@ -173,7 +173,8 @@ var XAPP = (function() {
 			var options = jQuery.extend({
 				message:msg,
 				type:'alert',
-				buttonLabel:'OK'
+				buttonLabel:'OK',
+				textAlign: 'center',
 			},options);
 			
 			if($('#alerts').html()){
