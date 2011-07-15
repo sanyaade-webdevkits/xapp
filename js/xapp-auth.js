@@ -39,6 +39,7 @@ XAPP.AUTH = function() {
 		
 		    var data= $('form[action="#login"]').serialize();
 			$.post(api_endpoint+'/login',data,function(json) {
+				alert(json.status);
 				if (json.status=='success') {
 					$('div#application').addClass('loggedin');
 					createCookie(auth_cookie_name,json.auth,json.days);
