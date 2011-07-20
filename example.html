@@ -84,6 +84,22 @@
 				XAPP.resetAlert();
 			});
 		}
+		
+		function customButtonAlert() {
+		
+			XAPP.alert('This has custom buttons',null,{
+				buttonList: [
+					{label: 'Yes',
+					 href: '#',
+					 onclick: function() { alert('Yes'); XAPP.resetAlert(); }
+					}, 
+					{label: 'No',
+					 href: '#',
+					 onclick: function() { alert('No'); XAPP.resetAlert(); }
+					}, 
+			
+				]});
+		}
 	</script>
 </head>
 <body>
@@ -129,6 +145,13 @@
 							</aside>
 							Alert
 						</li>
+						<li data-click="customButtonAlert();">
+							<aside>
+								<img src="img/img.png" width="50" height="50">
+							</aside>
+							Alert with custom buttons
+						</li>
+
 						<li data-click="XAPP.alert('This is a error alert',function() { alert('Clicked'); },{type:'error',buttonLabel:'NO!!'});">
 							<aside>
 								<img src="img/img.png" width="50" height="50">

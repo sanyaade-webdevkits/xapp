@@ -170,15 +170,24 @@ var XAPP = (function() {
 			return false;
 		},
 		//options is an optional obj with a field type 'error'
+		//buttons is an optional array of jsons of the following structure:
+		// {"label": "buttonLabel", "href": "#buttonhref", "onclick": "someFunction();"}
+
 		alert: function(msg, callback, options){
 			
 			var options = jQuery.extend({
 				template: 'alert',
 				message:msg,
 				type:'alert',
-				buttonLabel:'OK',
+				buttonList: [{
+					label: 'OK',
+					onclick: function() { XAPP.resetAlert(); },
+				}],
 				textAlign: 'center',
 			},options);
+			
+			
+			
 			
 			if($('#alerts').html()){
 				XAPP.resetAlert();	
@@ -190,14 +199,20 @@ var XAPP = (function() {
 				$('#alert_background, #alert_message').height(window.innerHeight/3);
 			}else{
 				$('#alert_background, #alert_message').height(window.innerHeight/2);
-			}
 			
+				if(options.buttonList){
+					$('#alert_message').append("<div class='clearer'></div>");
+					for(var i in options.buttonList){
+						options.buttonList[i].id = i + '_alert_button';
+						$('#alert_message').append(XAPP.TEMPLATES.button, options.buttonList[i]);	
+						if (options.buttonList[i].onclick) {
+							$('#'+i+'_alert_button').bind('click',options.buttonList[i].onclick);
+						}
+					}
+				}			
+			}
 			$('#alerts').show();	
 					
-			if(typeof(callback)== 'function'){
-				$('a[href="#dismiss"]').click(callback);
-			}	
-			$('a[href="#dismiss"]').click(XAPP.resetAlert);
 		},
 		//reset alert
 		resetAlert: function(){
