@@ -203,6 +203,8 @@
 
 		div#application > header a.back { position: absolute; left: 3px; }
 		
+		div#application > header a.next { position: absolute; right
+		: 3px; }
 		
 		
 		/* Cool Footer styles from 	http://jordandobson.com/webkit_mask_iphone_nav/retina/# */

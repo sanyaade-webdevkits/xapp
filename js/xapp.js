@@ -68,7 +68,15 @@ var XAPP = (function() {
 							$('div#application > header').prepend('<a href="#" class="button back">' + back_button_title + '</a>');		
 						}
 						
+						
 						var id = '#'+pages[current_page].id;
+
+						if ($(id).attr('data-button')) { 
+							$('div#application > header').append('<a href="#" class="button next">' + $(id).attr('data-button') + '</a>');
+							$('div#application > header .button.next').unbind();
+							$('div#application > header .button.next').bind('click',function(){ eval($(id).attr('data-click')); });
+						}
+
 						$('div#application > #pages > ul').touchScroll({scrollHeight:$(id).outerHeight(true)});
 						$('div#application > #pages > ul').touchScroll('update');
 						$('div#application > #pages > ul').touchScroll('setPosition', 0);
