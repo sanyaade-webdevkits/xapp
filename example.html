@@ -60,10 +60,8 @@
 			XAPP.alert('loading', null, {'template': 'loading'});
 
 			$.getJSON('json.html',function(json) { 
-				console.log(json);
 				$('#dynamic').html('<ul class="list"></ul>');
 				for (var x in json.results) {
-					console.log(json.results[x]);
 					$('#dynamic ul').append(XAPP.TEMPLATES.list_item_image,json.results[x]);				
 				}
 				$('#dynamic ul.list li').unbind();
@@ -80,8 +78,11 @@
 		function loadFromExternal() {
 			XAPP.alert('loading', null, {'template': 'loading'});
 			$('#dynamic').load('external.html',function() {
-				XAPP.gotoPage(3);
-				XAPP.resetAlert();
+
+				XAPP.gotoPage(3,function() {			
+						XAPP.resetAlert();
+				});
+
 			});
 		}
 		
@@ -220,17 +221,17 @@
 					</ul>
 				</li>
 				<li id="third" data-title="Tabs">
-					<section id="tab1" data-title="Tab 1">
+					<section id="tab1" data-tab="Tab 1" data-title="Tab Title 1">
 						<div class="padded">
 							Tab 1
 						</div>
 					</section>
-					<section id="tab2" data-title="Tab 2" data-before="alert('Changing tab!');" data-after="alert('Changed!');">
+					<section id="tab2" data-tab="Tab 2" data-title="Tab Title 2" data-before="alert('Changing tab!');" data-after="alert('Changed!');">
 						<div class="padded">
 							Tab 2
 						</div>
 					</section>
-					<section id="tab3" data-title="Tab 3">
+					<section id="tab3" data-tab="Tab 3" data-title="Tab Title 3">
 						<div class="padded">
 							Tab 3
 						</div>

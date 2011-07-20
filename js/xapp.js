@@ -57,6 +57,9 @@ var XAPP = (function() {
 					
 						this.updateToolbar();
 					},		
+				title: function(newtitle) {
+					$('div#application header h1').html(newtitle);
+				},
 				updateToolbar: function() {
 					
 						$('div#application header').html("<h1>"+pages[current_page].title + "</h1>");
@@ -80,9 +83,9 @@ var XAPP = (function() {
 			
 						// suck all the tabs into an array 
 						$(id + ' > section').each(function() {
-							tabs.push({title: $(this).attr('data-title'),id: $(this).attr('id')});
+							tabs.push({tab: $(this).attr('data-tab'),title: $(this).attr('data-title'),id: $(this).attr('id')});
 							$(this).hide();
-							$('div#application > footer').append('<a href="#" data-tab="' + $(this).attr('id') + '"><strong>' + $(this).attr('data-title') + '</strong></a>');
+							$('div#application > footer').append('<a href="#" data-tab="' + $(this).attr('id') + '"><strong>' + $(this).attr('data-tab') + '</strong></a>');
 						});
 			
 						// show the first tab.
@@ -91,6 +94,9 @@ var XAPP = (function() {
 						$('div#application > footer > a:first-child').addClass('active');
 			
 						if (tabs.length > 0) {
+							if (tabs[0].title!='') { 
+								XAPP.title(tabs[0].title);
+							}
 							$('div#application > footer').show();
 						}
 						$('div#application > #pages > ul > li ul.list > li').removeClass('active');
@@ -122,6 +128,10 @@ var XAPP = (function() {
 					var event = $('#'+tab).attr('data-after');
 					res = eval(event);			
 				}
+				
+				if ($('#'+tab).attr('data-title')) { 
+					XAPP.title($('#'+tab).attr('data-title'));
+				}
 				XAPP.pageResizer(id);	
 			},
 		 pageResizer: function(id) {		 
@@ -130,7 +140,7 @@ var XAPP = (function() {
 				$('div#application > #pages > ul').touchScroll('setPosition', 0);
 
 		 },		
-		 nextPage: function() {			
+		 nextPage: function(callback) {			
 			breadcrumbs.push({title:  pages[current_page].title, index: current_page, offset: pages[current_page].offset});
 			
 			var next_id = pages[current_page+1].id;
@@ -140,11 +150,15 @@ var XAPP = (function() {
 			},'fast',function() {
 				current_page++;
 				XAPP.updateToolbar();
+				if (typeof(callback)=='function') {
+					callback();
+				}
+
 			});
 			
 			return false;
 		},
-		prevPage: function() {
+		prevPage: function(callback) {
 			var prev_page = breadcrumbs.pop();
 			
 			var new_offset = prev_page.offset;
@@ -153,10 +167,13 @@ var XAPP = (function() {
 			},'fast',function() {
 				current_page=prev_page.index;
 				XAPP.updateToolbar();
+				if (typeof(callback)=='function') {
+					callback();
+				}
 			});
 			return false;
 		},
-		gotoPage: function(x,no_history) {
+		gotoPage: function(x,callback,no_history) {
 			if (!no_history) {
 				breadcrumbs.push({title:  pages[current_page].title, index: current_page, offset: pages[current_page].offset});
 			}
@@ -166,6 +183,10 @@ var XAPP = (function() {
 			},'fast',function() {
 				current_page = x;
 				XAPP.updateToolbar();
+				if (typeof(callback)=='function') {
+					callback();
+				}
+
 			});
 			return false;
 		},
@@ -186,12 +207,10 @@ var XAPP = (function() {
 				textAlign: 'center',
 			},options);
 			
-			
-			
-			
 			if($('#alerts').html()){
 				XAPP.resetAlert();	
 			}
+
 			$('#alerts').append(XAPP.TEMPLATES[options.template], options);
 			
 			if(options.template== 'loading'){

@@ -108,7 +108,7 @@
 		
 		a.alert_button {
 			display: block;
-
+			margin-bottom: 5px; 
 			text-decoration:none;
 			font-family: Helvetica, sans-serif;
 			font-size: 14px;
