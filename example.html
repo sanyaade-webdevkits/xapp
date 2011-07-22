@@ -35,8 +35,12 @@
 	<script type="text/javascript" src="js/jquery.template.js"></script>
 	<script type="text/javascript" src="js/touch-scroll.min.js"></script>
 
-	<link rel="stylesheet" type="text/css" href="css/xapp.css" />	
-
+	<link rel="stylesheet" type="text/css" href="css/xapp.css" />
+		
+	<script type="text/javascript" src="js/json2.js"></script>
+	<script type="text/javascript" src="js/Lawnchair.js"></script>
+	<script type="text/javascript" src="js/adapters/dom.js"></script>
+	
 	<script type="text/javascript" src="js/xapp.js"></script>
 	<script type="text/javascript" src="js/xapp-templates.js"></script>
 	<script type="text/javascript" src="js/xapp-auth.js"></script>
@@ -58,7 +62,36 @@
 		
 		function loadFromAjax() {
 			XAPP.alert('loading', null, {'template': 'loading'});
-
+				
+			function success(json){
+			
+				$('#dynamic').html('<ul class="list"></ul>');
+				for (var x in json.results) {
+					$('#dynamic ul').append(XAPP.TEMPLATES.list_item_image,json.results[x]);				
+				}
+				$('#dynamic ul.list li').unbind();
+				$('#dynamic ul.list li').bind('click',function() { 
+				
+					alert($(this).attr('data-id'));
+				});
+				XAPP.gotoPage(3);			
+				XAPP.resetAlert();			
+			}
+			
+			function failure(){
+				console.log('failed');
+			}
+						
+			var apiObj= {
+					"url": "json.html",
+					"data": "",
+					"dataType": "json",
+					"success": function(){success(json)},
+					"failure": function(){failure()}	
+				};
+				
+			XAPP.ajax(apiObj);
+			/*	
 			$.getJSON('json.html',function(json) { 
 				$('#dynamic').html('<ul class="list"></ul>');
 				for (var x in json.results) {
@@ -71,7 +104,7 @@
 				});
 				XAPP.gotoPage(3);			
 				XAPP.resetAlert();
-			});
+			}); */
 			return false;
 		}
 		

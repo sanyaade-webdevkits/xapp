@@ -111,7 +111,36 @@ var XAPP = (function() {
 		
 				
 				},
-	
+				/*
+					localStorage: if true it will try localStorage first, and then store the data when returned from the server
+					url: the url of the api
+					data: arguments sent to the api
+					success: function to be called once data is retrieved
+					failure: function to be called if the success fails
+					dataType: json or xml
+				*/
+			ajax: function(obj){
+				var call= obj.url+obj.data;
+				var localSearch= new Lawnchair(function(){			
+				});
+				//call success() on any stored data
+				localSearch.get(call,function(results) { obj.success(results.data); });
+				//get new data
+				$.ajax({
+					url: call,
+					data: obj.data,
+					dataType: obj.dataType,
+					success: function(data){
+								var saveThis= { key: call,
+									   		    data: data
+									   		   };
+								localSearch.save(saveThis);
+								//call success on new results
+								obj.success(data);
+							},
+					failure: function(){obj.failure();}
+				});
+			},
 		 	switchTab: function() {
 				// switch to which tab?
 				var tab = $(this).attr('data-tab');
