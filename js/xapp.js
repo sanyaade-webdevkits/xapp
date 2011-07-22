@@ -11,9 +11,15 @@ var XAPP = (function() {
 			
 			// holds a list of the tabs on the current page.
 			var tabs = new Array();
+			
+			// Lawnchair localstorage db connector
+			var LOCAL_STORAGE;
 		
 			return {
 				boot: function() { 
+		
+						LOCAL_STORAGE= new Lawnchair(function(){});
+
 				
 						// add a header, footer, and alerts holder.
 						$('div#application').prepend('<header></header><div id="alerts"></div>');
@@ -121,10 +127,8 @@ var XAPP = (function() {
 				*/
 			ajax: function(obj){
 				var call= obj.url+obj.data;
-				var localSearch= new Lawnchair(function(){			
-				});
 				//call success() on any stored data
-				localSearch.get(call,function(results) { obj.success(results.data); });
+				LOCAL_STORAGE.get(call,function(results) { if (results)  {  obj.success(results.data); } });
 				//get new data
 				$.ajax({
 					url: call,
@@ -134,7 +138,7 @@ var XAPP = (function() {
 								var saveThis= { key: call,
 									   		    data: data
 									   		   };
-								localSearch.save(saveThis);
+								LOCAL_STORAGE.save(saveThis);
 								//call success on new results
 								obj.success(data);
 							},

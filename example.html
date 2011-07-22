@@ -64,7 +64,6 @@
 			XAPP.alert('loading', null, {'template': 'loading'});
 				
 			function success(json){
-			
 				$('#dynamic').html('<ul class="list"></ul>');
 				for (var x in json.results) {
 					$('#dynamic ul').append(XAPP.TEMPLATES.list_item_image,json.results[x]);				
@@ -86,7 +85,7 @@
 					"url": "json.html",
 					"data": "",
 					"dataType": "json",
-					"success": function(){success(json)},
+					"success": function(json){success(json)},
 					"failure": function(){failure()}	
 				};
 				
