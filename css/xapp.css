@@ -51,6 +51,14 @@
 			height: 100%; 
 			margin-right: 13px; 
 		} 
+
+   /* Authentication Details */
+
+    div#application .loggedout { display:none; }
+	 	
+    div#application.loggedout .loggedout { display: block; }	 		 	
+    div#application .loggedin { display:none; }	 	
+    div#application.loggedin .loggedin { display: block; }
 		
 		/* Alert Pops */
 	
@@ -208,7 +216,7 @@
 
 
 		div#application > header a.back { position: absolute; left: 3px; }
-		
+		div#application > header a.next { position: absolute; right: 3px; }		
 		
 		
 		/* Cool Footer styles from 	http://jordandobson.com/webkit_mask_iphone_nav/retina/# */
