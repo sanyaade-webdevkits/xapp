@@ -45,6 +45,9 @@ var XAPP = (function() {
 				
 						$('div#application > footer > a').live('click',this.switchTab);
 						
+						// make sure accessory clicks do not fire the main row selection
+						$('div#application > #pages > ul > li ul.list li a.accessory').live('click',function(e) {  e.preventDefault(); return false;});
+						
 						// handle iOS scrolling
 						// may not be needed when iOS 5.0 comes out!
 						$('div#application > #pages > ul').touchScroll();

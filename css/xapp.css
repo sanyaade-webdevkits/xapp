@@ -23,9 +23,47 @@
 			border-bottom: 1px solid #000; 
 			clear:both;
 			vertical-align: middle;
-			width: 100%;
+		}
+		
+		div#application > #pages > ul > li ul.list li.arrow { 
+			background-image: url(../img/list_arrow.jpg);
+			padding-right:57px;
+			background-position:  263px center;
+			background-repeat: no-repeat;
+		}
+		
+		div#application > #pages > ul > li ul.list li.details { 
+			background-image: url(../img/list_details.jpg);
+			padding-right:57px;
+			background-position:  263px center;
+			background-repeat: no-repeat;
+
+		}
+		div#application > #pages > ul > li ul.list li.checkmark { 
+			background-image: url(../img/list_checkmark.jpg);
+			padding-right:57px;
+			background-position:  263px center;
+			background-repeat: no-repeat;
 		}
 
+
+		div#application > #pages > ul > li ul.list li a.accessory {
+			display: block; width:50px; min-height: 50px; height:100%;
+			float: right;
+			text-decoration: none;
+			color: transparent;
+		}
+		div#application > #pages > ul > li ul.list li a.accessory.delete {
+			background-image: url(../img/list_delete.jpg);
+			background-position: center center;
+			background-repeat: none;		
+		}
+		div#application > #pages > ul > li ul.list li a.accessory.add {
+			background-image: url(../img/list_add.jpg);
+			background-position: center center;
+			background-repeat: none;		
+		}
+		
 		div#application > #pages > ul > li ul.list li span { 			
 			display: block;
 		}
