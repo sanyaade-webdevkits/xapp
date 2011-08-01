@@ -86,6 +86,11 @@ var XAPP = (function() {
 							$('div#application > header .button.next').bind('click',function(){ eval($(id).attr('data-click')); });
 						}
 
+						if ($('div#application > header').hasClass('loading')) {
+							if (!$('div#application > header > #toolbar_loader').length) {
+								$('div#application > header').prepend('<div id="toolbar_loader"><img src="img/loading_small_white.png" border="0" height="16" width="16" class="loading_indicator"></div>');
+							}
+						}
 						$('div#application > #pages > ul').touchScroll({scrollHeight:$(id).outerHeight(true)});
 						$('div#application > #pages > ul').touchScroll('update');
 						$('div#application > #pages > ul').touchScroll('setPosition', 0);
@@ -120,6 +125,18 @@ var XAPP = (function() {
 		
 				
 				},
+				
+			startLoading: function() {
+				console.log("Start laoding");
+				$('div#application > header').addClass('loading');
+			},
+			stopLoading: function() {
+				console.log("STop loading");
+				$('div#application > header').removeClass('loading');
+				$('div#application > header .loading_indicator').remove();
+			},
+			
+			
 				/*
 					localStorage: if true it will try localStorage first, and then store the data when returned from the server
 					url: the url of the api
@@ -133,24 +150,31 @@ var XAPP = (function() {
 				// set up a query signature we can use to cache data.
 				var query_signature = request.url+request.data;
 
+				var callback_counter = 0;
+
+				XAPP.startLoading();
+
 				// check local storage for a cached version,
 				// call success() on any stored data
-				LOCAL_STORAGE.get(query_signature,function(results) { if (results)  { request.success(results.data); } });
-
+				LOCAL_STORAGE.get(query_signature,function(results) { if (results)  { request.success(results.data,++callback_counter);  } });
+				
 				// Proceed to making the ajax call..
 				$.ajax({
 					url: request.url,
 					data: request.data,
 					dataType: request.dataType,
 					success: function(json){
+								XAPP.stopLoading();
 								var saveThis= { key: query_signature,
 									   		    data: json
 									   		   };
 								LOCAL_STORAGE.save(saveThis);
 								//call success on new results
-								request.success(json);
+								request.success(json,++callback_counter);
 							},
-					failure: function(){request.failure();}
+					failure: function(){
+						request.failure();
+					}
 				});
 			},
 		 	switchTab: function() {
@@ -290,8 +314,9 @@ var XAPP = (function() {
 			$('#alerts').append(XAPP.TEMPLATES[options.template], options);
 			
 			if(options.template== 'loading'){
-				$('#alerts, #alert_message').css('bottom', window.innerHeight/2.5 );
-				$('#alert_background, #alert_message').height(window.innerHeight/3);
+				$('#alerts, #alert_message').css('bottom', 140 );
+				
+				$('#alert_background, #alert_message').height(200);
 			}else{
 				$('#alert_background, #alert_message').height(window.innerHeight/2);
 			

@@ -47,21 +47,25 @@
 		}
 
 
+		/* buttons that appear in list views */ 
+
 		div#application > #pages > ul > li ul.list li a.accessory {
 			display: block; width:50px; min-height: 50px; height:100%;
-			float: right;
+			float:right;
+			position:relative;
+			left:5px;
 			text-decoration: none;
 			color: transparent;
 		}
 		div#application > #pages > ul > li ul.list li a.accessory.delete {
 			background-image: url(../img/list_delete.jpg);
-			background-position: center center;
-			background-repeat: none;		
+			background-position: right center;
+			background-repeat: no-repeat;		
 		}
 		div#application > #pages > ul > li ul.list li a.accessory.add {
 			background-image: url(../img/list_add.jpg);
-			background-position: center center;
-			background-repeat: none;		
+			background-position: right center;
+			background-repeat: no-repeat;		
 		}
 		
 		div#application > #pages > ul > li ul.list li span { 			
@@ -143,15 +147,18 @@
 		}
 		
 		#alert_background.loading{
+			background: rgba(0,0,0,0.75);
+/*
 			background:-webkit-gradient(linear, 28% 100%, 28% 3%, from(#FFFFFF), to(#000000));
 			-moz-box-shadow: 4px 5px 5px #000000;
 			-webkit-box-shadow: 4px 5px 5px #000000;
 			box-shadow: 4px 5px 5px #000000;
+*/
 			border-radius: 10px;
 			-moz-border-radius: 10px;
 			-webkit-border-radius: 10px;
-			margin-left: 20px;
-			margin-right: 20px;
+			margin-left: 60px;
+			margin-right: 60px;
 		}
 		
 		#alert_message.loading{
@@ -201,6 +208,19 @@
 		from { -moz-transform: rotate(0deg) scale(1) skew(1deg) translate(0px); }
 		to { -moz-transform: rotate(360deg) scale(1) skew(1deg) translate(0px); }
 		}		
+		
+
+		#toolbar_loader { position: absolute; right: 7px; top:7px; display: none; } 		
+		.loading #toolbar_loader { display: block; } 		
+
+		#toolbar_loader .loading_indicator {
+		display: block;
+		height:16px;
+		width:16px;
+		-webkit-animation: cssAnimation 1s infinite linear;
+		-moz-animation: cssAnimation 1s infinite linear;
+		}	
+		
 		/* Cool Header styles from 	http://www.cagintranet.com/archive/create-an-ios-header-bar-in-css3-and-html5/ */
 
 		div#application > header h1 {  

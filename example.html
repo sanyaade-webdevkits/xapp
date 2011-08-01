@@ -63,18 +63,22 @@
 		function loadFromAjax() {
 			XAPP.alert('loading', null, {'template': 'loading'});
 				
-			function success(json){
+			function success(json,phase){
+
 				$('#dynamic').html('<ul class="list"></ul>');
 				for (var x in json.results) {
 					$('#dynamic ul').append(XAPP.TEMPLATES.list_item_image,json.results[x]);				
 				}
 				$('#dynamic ul.list li').unbind();
-				$('#dynamic ul.list li').bind('click',function() { 
-				
+				$('#dynamic ul.list li').bind('click',function() { 				
 					alert($(this).attr('data-id'));
 				});
-				XAPP.gotoPage(3);			
-				XAPP.resetAlert();			
+				// only do this on the first callback.
+				if (phase==1) { 
+					XAPP.gotoPage(3,function() {
+						XAPP.resetAlert();
+					});
+				}			
 			}
 			
 			function failure(){
@@ -82,28 +86,14 @@
 			}
 						
 			var apiObj= {
-					"url": "json.html",
+					"url": "json.php",
 					"data": "",
 					"dataType": "json",
-					"success": function(json){success(json)},
-					"failure": function(){failure()}	
+					"success": success,
+					"failure": failure,	
 				};
 				
 			XAPP.ajax(apiObj);
-			/*	
-			$.getJSON('json.html',function(json) { 
-				$('#dynamic').html('<ul class="list"></ul>');
-				for (var x in json.results) {
-					$('#dynamic ul').append(XAPP.TEMPLATES.list_item_image,json.results[x]);				
-				}
-				$('#dynamic ul.list li').unbind();
-				$('#dynamic ul.list li').bind('click',function() { 
-				
-					alert($(this).attr('data-id'));
-				});
-				XAPP.gotoPage(3);			
-				XAPP.resetAlert();
-			}); */
 			return false;
 		}
 		
@@ -148,7 +138,7 @@
 							Logout
 						</li>
 
-						<li data-click="XAPP.nextPage();" class="details">
+						<li data-click="XAPP.nextPage();" class="arrow">
 							<aside>
 								<img src="img/img.png" width="50" height="50">
 							</aside>
@@ -156,7 +146,7 @@
 								Menu with a bit of a longer name and stuff
 							</span>
 						</li>
-						<li data-click="XAPP.nextPage();" class="arrow">
+						<li data-click="XAPP.nextPage();" class="checkmark">
 							<aside>
 								<img src="img/img.png" width="50" height="50">
 							</aside>
@@ -164,7 +154,7 @@
 								Menu
 							</span>
 						</li>
-						<li data-click="XAPP.nextPage();" class="checkmark">
+						<li data-click="XAPP.nextPage();" class="details">
 							<aside>
 								<img src="img/img.png" width="50" height="50">
 							</aside>
@@ -176,6 +166,8 @@
 							<aside>
 								<img src="img/img.png" width="50" height="50">
 							</aside>
+							<a href="#" class="accessory delete">&nbsp;</a>
+
 							Alert
 						</li>
 						<li data-click="customButtonAlert();">
@@ -208,8 +200,6 @@
 							<aside>
 								<img src="img/img.png" width="50" height="50">
 							</aside>
-							<a href="#" class="accessory delete">&nbsp;</a>
-
 							<span>
 								Load External Page
 							</span>
