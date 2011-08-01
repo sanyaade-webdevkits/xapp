@@ -125,24 +125,29 @@ var XAPP = (function() {
 					failure: function to be called if the success fails
 					dataType: json or xml
 				*/
-			ajax: function(obj){
-				var call= obj.url+obj.data;
-				//call success() on any stored data
-				LOCAL_STORAGE.get(call,function(results) { if (results)  {  obj.success(results.data); } });
-				//get new data
+			ajax: function(request){
+
+				// set up a query signature we can use to cache data.
+				var query_signature = request.url+request.data;
+
+				// check local storage for a cached version,
+				// call success() on any stored data
+				LOCAL_STORAGE.get(query_signature,function(results) { if (results)  { request.success(results.data); } });
+
+				// Proceed to making the ajax call..
 				$.ajax({
-					url: call,
-					data: obj.data,
-					dataType: obj.dataType,
-					success: function(data){
-								var saveThis= { key: call,
-									   		    data: data
+					url: request.url,
+					data: request.data,
+					dataType: request.dataType,
+					success: function(json){
+								var saveThis= { key: query_signature,
+									   		    data: json
 									   		   };
 								LOCAL_STORAGE.save(saveThis);
 								//call success on new results
-								obj.success(data);
+								request.success(json);
 							},
-					failure: function(){obj.failure();}
+					failure: function(){request.failure();}
 				});
 			},
 		 	switchTab: function() {
@@ -214,7 +219,10 @@ var XAPP = (function() {
 			});
 			return false;
 		},
-		gotoPage: function(x,callback,no_history) {
+		gotoPage: function(x,callback,options) {
+		
+			options = $.extend({reset_history: false,no_history:false},options);
+			
 			if (isNaN(x)) {
 				for (var p in pages) {
 					if (pages[p].id==x) {
@@ -234,9 +242,14 @@ var XAPP = (function() {
 				}		
 				return false;
 			}
-			if (!no_history) {
+			if (!options.no_history) {
 				breadcrumbs.push({title:  pages[current_page].title, index: current_page, offset: pages[current_page].offset});
 			}
+			if (options.reset_history) { 
+				breadcrumbs = new Array();
+				breadcrumbs.push({title: pages[0].title,index:0,offset:pages[0].offset});
+			}
+			
 			var new_offset = pages[x].offset;
 			$('div#application > #pages > ul').animate({
 				left: -new_offset,
