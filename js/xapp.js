@@ -215,6 +215,25 @@ var XAPP = (function() {
 			return false;
 		},
 		gotoPage: function(x,callback,no_history) {
+			if (isNaN(x)) {
+				for (var p in pages) {
+					if (pages[p].id==x) {
+						x = p;
+					}
+				}	
+			}
+			if (isNaN(x)) {
+				XAPP.alert('Application Error: Cannot find page ' + x);
+				return false;
+			}
+			
+			if (x == current_page) {
+				XAPP.updateToolbar();
+				if (typeof(callback)=='function') {
+					callback();
+				}		
+				return false;
+			}
 			if (!no_history) {
 				breadcrumbs.push({title:  pages[current_page].title, index: current_page, offset: pages[current_page].offset});
 			}
