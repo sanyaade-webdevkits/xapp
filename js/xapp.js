@@ -125,18 +125,20 @@ var XAPP = (function() {
 		
 				
 				},
-				
+			localStorage: function() { return LOCAL_STORAGE; },
+            localGet: function(query,callback) {
+                LOCAL_STORAGE.get(query,callback);
+            },
+            localSave: function(obj,callback) {
+                LOCAL_STORAGE.save(obj,callback);
+            },
 			startLoading: function() {
-				console.log("Start laoding");
 				$('div#application > header').addClass('loading');
 			},
 			stopLoading: function() {
-				console.log("STop loading");
 				$('div#application > header').removeClass('loading');
 				$('div#application > header .loading_indicator').remove();
 			},
-			
-			
 				/*
 					localStorage: if true it will try localStorage first, and then store the data when returned from the server
 					url: the url of the api
@@ -262,6 +264,7 @@ var XAPP = (function() {
 				return false;
 			}
 			
+			
 			if (x == current_page) {
 				XAPP.updateToolbar();
 				if (typeof(callback)=='function') {
@@ -269,14 +272,14 @@ var XAPP = (function() {
 				}		
 				return false;
 			}
+			if (options.reset_history) { 
+                breadcrumbs = new Array();
+                current_page = 0;
+			}
+
 			if (!options.no_history) {
 				breadcrumbs.push({title:  pages[current_page].title, index: current_page, offset: pages[current_page].offset});
 			}
-			if (options.reset_history) { 
-				breadcrumbs = new Array();
-				breadcrumbs.push({title: pages[0].title,index:0,offset:pages[0].offset});
-			}
-			
 			var new_offset = pages[x].offset;
 			$('div#application > #pages > ul').animate({
 				left: -new_offset,

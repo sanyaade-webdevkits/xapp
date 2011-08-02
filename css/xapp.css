@@ -94,6 +94,21 @@
 			margin-right: 13px; 
 		} 
 
+        div#application > #pages > ul > li ul.list li aside.thin {
+            width:25px;
+            
+        } 
+
+        div#application > #pages > ul > li ul.list li.thin aside {
+            min-height: 25px; 
+            width:25px;
+
+        } 
+        div#application > #pages > ul > li ul.list li.thin a.accessory {
+                min-height: 25px; 
+        }
+
+
    /* Authentication Details */
 
     div#application .loggedout { display:none; }
