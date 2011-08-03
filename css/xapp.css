@@ -46,14 +46,14 @@ body {
  div#application > #pages > ul {
     position: relative;
     width: 3000px;
-    min-height: 400px;
+    min-height: 460px;
     background: #F0F0F0;
 }
 
  div#application > #pages > ul > li {
     display: block;
     width: 320px;
-    min-height: 400px;
+    min-height: 460px;
     float:left;
     background: #FFF;
 }
