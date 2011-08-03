@@ -28,6 +28,8 @@ var XAPP = (function() {
 						// suck all the current pages into an array so we know where we are.
 						$('div#application > #pages >  ul > li').each(function() { 
 							pages.push({title: $(this).attr('data-title'),offset: $(this).position().left,id: $(this).attr('id')});
+							//$(this).css('position','relative');
+							//$(this).css('float','none');
 						});
 							
 						// show the first page
@@ -68,6 +70,9 @@ var XAPP = (function() {
 					
 						this.updateToolbar();
 					},		
+				pages: function() {
+					return pages;
+				},
 				title: function(newtitle) {
 					$('div#application header h1').html(newtitle);
 				},
@@ -220,34 +225,14 @@ var XAPP = (function() {
 		 nextPage: function(callback) {			
 			breadcrumbs.push({title:  pages[current_page].title, index: current_page, offset: pages[current_page].offset});
 			
-			var next_id = pages[current_page+1].id;
-						
-			$('div#application > #pages > ul').animate({
-				left: '-=320',
-			},'fast',function() {
-				current_page++;
-				XAPP.updateToolbar();
-				if (typeof(callback)=='function') {
-					callback();
-				}
-
-			});
+			XAPP.navigateToPage(current_page+1,callback);
 			
 			return false;
 		},
 		prevPage: function(callback) {
 			var prev_page = breadcrumbs.pop();
 			
-			var new_offset = prev_page.offset;
-			$('div#application > #pages >  ul').animate({
-				left: -new_offset,
-			},'fast',function() {
-				current_page=prev_page.index;
-				XAPP.updateToolbar();
-				if (typeof(callback)=='function') {
-					callback();
-				}
-			});
+			XAPP.navigateToPage(prev_page.index,callback);
 			return false;
 		},
 		gotoPage: function(x,callback,options) {
@@ -282,10 +267,52 @@ var XAPP = (function() {
 			if (!options.no_history) {
 				breadcrumbs.push({title:  pages[current_page].title, index: current_page, offset: pages[current_page].offset});
 			}
-			var new_offset = pages[x].offset;
+			
+			XAPP.navigateToPage(x,callback);
+			return false;
+		},
+		navigateToPage: function(x,callback) {
+			var new_offset = pages[x].offset - pages[current_page].offset;
+			
+			console.log("Current page: " + pages[current_page].offset);
+			console.log("Go to page: " + pages[x].offset);
+
+			console.log("Real diff: " + new_offset);
+			for (var p in pages) {
+				if (p != x && p != current_page) {
+					$('div#application > #pages > ul li#' + pages[p].id).hide();
+				} else {
+					$('div#application > #pages > ul li#' + pages[p].id).show();
+					$('div#application > #pages > ul li#' + pages[p].id).css('float','none');
+					$('div#application > #pages > ul li#' + pages[p].id).css('position','absolute');
+					$('div#application > #pages > ul li#' + pages[p].id).css('top',0);
+
+
+				}
+			}
+			if (new_offset > 0) {
+				direction = 'l';
+				
+				// put the current pageon the right hand side
+				$('div#application > #pages > ul li#'+pages[current_page].id).css('left',0);
+				$('div#application > #pages > ul').css('offsetLeft',0);
+				$('div#application > #pages > ul li#'+pages[x].id).css('left',320);
+				new_offset = -320;
+				
+			} else {
+				direction = 'r';
+				// put the current pageon the right hand side
+				$('div#application > #pages > ul li#'+pages[current_page].id).css('left',320);
+				$('div#application > #pages > ul').css('left',-320);
+				$('div#application > #pages > ul li#'+pages[x].id).css('left',0);
+				new_offset = 0;
+			}
+			console.log(direction);
+			
 			$('div#application > #pages > ul').animate({
-				left: -new_offset,
+				left: new_offset,
 			},'fast',function() {
+				console.log("APP OFFSET = " + $('div#application > #pages > ul').css('left'));
 				current_page = x;
 				XAPP.updateToolbar();
 				if (typeof(callback)=='function') {
@@ -293,7 +320,8 @@ var XAPP = (function() {
 				}
 
 			});
-			return false;
+
+
 		},
 		//options is an optional obj with a field type 'error'
 		//buttons is an optional array of jsons of the following structure:

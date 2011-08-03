@@ -21,20 +21,25 @@ body {
 }
 
  div#application {
+
     width: 320px;
     margin-left: auto;
     margin-right: auto;
-    overflow-x: hidden;
-    overflow-y: auto;
+     overflow-x: hidden; 
+     overflow-y: auto; 
+
     background: #FFF;
     position: fixed;
 }
 
  div#application > #pages {
     position: fixed;
+
     overflow-y: auto;
-    overflow-x: hidden;
-    width: 320px;
+      overflow-x: hidden;
+     width: 320px; 
+/*     width: 3000px; */
+
     background: #FFF;
 }
 
@@ -49,8 +54,13 @@ body {
     display: block;
     width: 320px;
     min-height: 400px;
-    float: left;
+    float:left;
     background: #FFF;
+}
+
+
+ div#application > #pages > ul > li:first-child {
+    display: block;
 }
 
  div#application > #pages > ul > li div.padded {
