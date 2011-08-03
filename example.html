@@ -75,7 +75,7 @@
 				});
 				// only do this on the first callback.
 				if (phase==1) { 
-					XAPP.gotoPage(3,function() {
+					XAPP.gotoPage('dynamic',function() {
 						XAPP.resetAlert();
 					});
 				}			
@@ -101,7 +101,7 @@
 			XAPP.alert('loading', null, {'template': 'loading'});
 			$('#dynamic').load('external.html',function() {
 
-				XAPP.gotoPage(3,function() {			
+				XAPP.gotoPage('dynamic',function() {			
 						XAPP.resetAlert();
 				});
 
@@ -131,7 +131,7 @@
 			<ul>
 				<li id="welcome" data-title="Home">
 					<ul class="list">
-						<li data-click="XAPP.gotoPage(4);" class="loggedout">
+						<li data-click="XAPP.gotoPage('login');" class="loggedout">
 							Login
 						</li>
 						<li data-click="XAPP.AUTH.logout();" class="loggedin">
@@ -264,6 +264,28 @@
 				</li>
 				<li id="dynamic" data-title="External">
 				</li>
+				<li id="test1" data-title="External">
+				
+				woo
+				</li>
+				<li id="test2" data-title="External">
+				
+				boo
+				</li>
+				<li id="test3" data-title="External">
+				
+				foo
+				</li>
+				<li id="test4" data-title="External">
+				doo
+				</li>
+				<li id="test5" data-title="External">
+				scroo
+				</li>
+				<li id="test6" data-title="External">
+				bluu
+				</li>
+
     			<li id="login" data-title="login">
 					<div class="padded">
            				  <form action="#login">
