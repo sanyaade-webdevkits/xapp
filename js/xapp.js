@@ -274,10 +274,6 @@ var XAPP = (function() {
 		navigateToPage: function(x,callback) {
 			var new_offset = pages[x].offset - pages[current_page].offset;
 			
-			console.log("Current page: " + pages[current_page].offset);
-			console.log("Go to page: " + pages[x].offset);
-
-			console.log("Real diff: " + new_offset);
 			for (var p in pages) {
 				if (p != x && p != current_page) {
 					$('div#application > #pages > ul li#' + pages[p].id).hide();
@@ -307,12 +303,10 @@ var XAPP = (function() {
 				$('div#application > #pages > ul li#'+pages[x].id).css('left',0);
 				new_offset = 0;
 			}
-			console.log(direction);
 			
 			$('div#application > #pages > ul').animate({
 				left: new_offset,
 			},250,function() {
-				console.log("APP OFFSET = " + $('div#application > #pages > ul').css('left'));
 				current_page = x;
 				XAPP.updateToolbar();
 				if (typeof(callback)=='function') {
