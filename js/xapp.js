@@ -188,7 +188,12 @@ var XAPP = (function() {
 								},
 						error: function(xhr,status,error){
 							XAPP.stopLoading();
+							if (!XAPP.online()) {
+								status ='offline';
+								error = 'You are not connected to the internet';
+							}
 							request.error(status,error);
+						
 						}
 					});
 				} else {
