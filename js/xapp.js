@@ -187,10 +187,12 @@ var XAPP = (function() {
 									request.success(json,++callback_counter);
 								},
 						error: function(xhr,status,error){
+							XAPP.stopLoading();
 							request.error(status,error);
 						}
 					});
 				} else {
+					XAPP.stopLoading();
 					XAPP.alert('You are not connected to the internet, so information displayed may be slightly out of date.');
 				}
 			},
