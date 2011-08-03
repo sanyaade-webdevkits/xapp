@@ -10,7 +10,6 @@
 	* Add support for tab images
 	* add support for list item switch image
 	* vertical center if there is an aside
-	* add support for right hand button
 	
 	
 	// header from
@@ -81,8 +80,8 @@
 				}			
 			}
 			
-			function failure(){
-				console.log('failed');
+			function failure(status,error){
+				XAPP.alert('Status: ' + status + ' / Error: ' + error);
 			}
 						
 			var apiObj= {
@@ -90,7 +89,7 @@
 					"data": "",
 					"dataType": "json",
 					"success": success,
-					"failure": failure,	
+					"error": failure,	
 				};
 				
 			XAPP.ajax(apiObj);
@@ -264,28 +263,6 @@
 				</li>
 				<li id="dynamic" data-title="External">
 				</li>
-				<li id="test1" data-title="External">
-				
-				woo
-				</li>
-				<li id="test2" data-title="External">
-				
-				boo
-				</li>
-				<li id="test3" data-title="External">
-				
-				foo
-				</li>
-				<li id="test4" data-title="External">
-				doo
-				</li>
-				<li id="test5" data-title="External">
-				scroo
-				</li>
-				<li id="test6" data-title="External">
-				bluu
-				</li>
-
     			<li id="login" data-title="login">
 					<div class="padded">
            				  <form action="#login">

@@ -132,6 +132,9 @@ var XAPP = (function() {
 		
 				
 				},
+			online: function() {
+				return navigator.onLine;
+			},
 			localStorage: function() { return LOCAL_STORAGE; },
             localGet: function(query,callback) {
                 LOCAL_STORAGE.get(query,callback);
@@ -167,24 +170,29 @@ var XAPP = (function() {
 				// call success() on any stored data
 				LOCAL_STORAGE.get(query_signature,function(results) { if (results)  { request.success(results.data,++callback_counter);  } });
 				
-				// Proceed to making the ajax call..
-				$.ajax({
-					url: request.url,
-					data: request.data,
-					dataType: request.dataType,
-					success: function(json){
-								XAPP.stopLoading();
-								var saveThis= { key: query_signature,
-									   		    data: json
-									   		   };
-								LOCAL_STORAGE.save(saveThis);
-								//call success on new results
-								request.success(json,++callback_counter);
-							},
-					failure: function(){
-						request.failure();
-					}
-				});
+				if (this.online()) {
+					// Proceed to making the ajax call..
+					$.ajax({
+						url: request.url,
+						data: request.data,
+						dataType: request.dataType,
+						timeout: 10000, // timeout after 10 seconds
+						success: function(json){
+									XAPP.stopLoading();
+									var saveThis= { key: query_signature,
+										   		    data: json
+										   		   };
+									LOCAL_STORAGE.save(saveThis);
+									//call success on new results
+									request.success(json,++callback_counter);
+								},
+						error: function(xhr,status,error){
+							request.error(status,error);
+						}
+					});
+				} else {
+					XAPP.alert('You are not connected to the internet, so information displayed may be slightly out of date.');
+				}
 			},
 		 	switchTab: function() {
 				// switch to which tab?
