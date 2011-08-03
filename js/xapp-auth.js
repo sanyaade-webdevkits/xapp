@@ -66,7 +66,7 @@ XAPP.AUTH = function() {
 					error: function(xhr,status,error) {
 					
 						if (fail) {
-							fail({status: 'error',error:error});
+							fail({status: status,error:error});
 						} else {
 							XAPP.alert(error);
 						}
@@ -103,7 +103,7 @@ XAPP.AUTH = function() {
 				error: function(xhr,status,error) {
 				
 					if (fail) {
-						fail({status: 'error',error:error});
+						fail({status: status,error:error});
 					} else {
 						XAPP.alert(error);
 					}
@@ -129,7 +129,7 @@ XAPP.AUTH = function() {
 				error: function(xhr,status,error) {
 				
 					if (fail) {
-						fail({status: 'error',error:error});
+						fail({status: status,error:error});
 					} else {
 						XAPP.alert(error);
 					}
