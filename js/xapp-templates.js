@@ -1,7 +1,7 @@
 XAPP.TEMPLATES = (function() { 
 
 		var list_item = '<li data-id="${id}" class="${classes}">${title}</li>';
-		var list_item_image = '<li data-id="${id}" class="${classes}"><aside><img src="${img}" /></aside>${title}</li>';
+		var list_item_image = '<li data-id="${id}" class="${classes}"><aside><img src="${img}" width="50" height="50" /></aside>${title}</li>';
 		
 		var alert="<div id='alert_message' class='${type}'><p style=\"text-align: ${textAlign}\">${message}</p></div><div id='alert_background' class='${type}'></div>";
 		
