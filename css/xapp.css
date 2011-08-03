@@ -298,29 +298,15 @@ opacity: 0.80;
     -moz-animation: cssAnimation 1s infinite linear;
 }
 
- @-webkit-keyframes cssAnimation {
-    from ;
+@-webkit-keyframes cssAnimation {
+from { -webkit-transform: rotate(0deg) scale(1) skew(1deg) translate(0px); }
+to { -webkit-transform: rotate(360deg) scale(1) skew(1deg) translate(0px); }
 }
+@-moz-keyframes cssAnimation {
+from { -moz-transform: rotate(0deg) scale(1) skew(1deg) translate(0px); }
+to { -moz-transform: rotate(360deg) scale(1) skew(1deg) translate(0px); }
+}		
 
- to {
-    -webkit-transform: rotate(360deg) scale(1) skew(1deg) translate(0px);
-}
-
- {
-    ;
-}
-
- @-moz-keyframes cssAnimation {
-    from ;
-}
-
- to {
-    -moz-transform: rotate(360deg) scale(1) skew(1deg) translate(0px);
-}
-
- {
-    ;
-}
 
  #toolbar_loader {
     position: absolute;
