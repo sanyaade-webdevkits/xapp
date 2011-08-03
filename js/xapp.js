@@ -295,7 +295,7 @@ var XAPP = (function() {
 				
 				// put the current pageon the right hand side
 				$('div#application > #pages > ul li#'+pages[current_page].id).css('left',0);
-				$('div#application > #pages > ul').css('offsetLeft',0);
+				$('div#application > #pages > ul').css('left',0);
 				$('div#application > #pages > ul li#'+pages[x].id).css('left',320);
 				new_offset = -320;
 				
@@ -311,7 +311,7 @@ var XAPP = (function() {
 			
 			$('div#application > #pages > ul').animate({
 				left: new_offset,
-			},'fast',function() {
+			},250,function() {
 				console.log("APP OFFSET = " + $('div#application > #pages > ul').css('left'));
 				current_page = x;
 				XAPP.updateToolbar();
