@@ -52,17 +52,19 @@ var XAPP = (function() {
 						// may not be needed when iOS 5.0 comes out!
 						$('div#application > #pages > ul').touchScroll();
 				
-						$('div#application > #pages > ul > li ul.list > li').live('click',function() {
+						$('div#application > #pages > ul > li ul.list > li').live('click',function() {							
+							// remove all active indicators
+							$('div#application > #pages > ul > li ul.list > li').removeClass('active');
 							
-						// remove all active indicators
-						$('div#application > #pages > ul > li ul.list > li').removeClass('active');
-						
-							$(this).addClass('active');
-							if ($(this).attr('data-click')) { 
-								var event = $(this).attr('data-click');
-								eval(event);
+							if (!$(this).attr('nohandler')) { 
+								$(this).addClass('active');
+								if ($(this).attr('data-click')) { 
+									var event = $(this).attr('data-click');
+									eval(event);
+								}
 							}
 						});
+
 					
 						this.updateToolbar();
 					},		
@@ -316,10 +318,11 @@ var XAPP = (function() {
 
 			$('#alerts').append(XAPP.TEMPLATES[options.template], options);
 			
-			if(options.template== 'loading'){
+			if(options.template== 'loading' || options.template=='confirmation'){
 				$('#alerts, #alert_message').css('bottom', 140 );
 				
 				$('#alert_background, #alert_message').height(200);
+
 			}else{
 				$('#alert_background, #alert_message').height(window.innerHeight/2);
 			

@@ -1,343 +1,449 @@
-		ul { list-style-type: none; margin:0px; padding:0px; }
-		.clearer { float: none; height: 0px; width: 100%; clear: both; } 
-		body { background: #000; padding:0px; margin:0px; overflow-y: hidden;   font-size:        125%;   font-family:      helvetica, arial, sans-serif;}
-		div#application { width: 320px;  margin-left:auto; margin-right: auto; overflow-x: hidden; overflow-y: auto; background: #FFF; position: fixed; }
-		div#application > #pages { position: fixed; overflow-y: auto; overflow-x:hidden; width:320px; background: #FFF; } 
+body {
+    background: #000;
+    padding: 0px;
+    margin: 0px;
+    overflow-y: hidden;
+    font-size: 125%;
+    font-family: helvetica, arial, sans-serif;
+}
 
-		div#application > #pages > ul { position: relative; width: 3000px; min-height: 400px; background: #F0F0F0; } 
-		div#application > #pages > ul > li { display: block; width: 320px; min-height: 400px; float: left;  background: #FFF; }
-		
-		div#application > #pages > ul > li div.padded { padding-left: 13px; padding-right: 13px; padding-top:8px; padding-bottom:15px;  } 
-		
-		div#application > header {  text-align: center; position: relative; 	
-			border-top:1px solid #666; 
-			border-bottom:1px solid #111; 
-			background: #222; 
-			background: -moz-linear-gradient(top, #333 0%, #111 100%); 
-			background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.55)), color-stop(0.2, rgba(255, 255, 255, 0.35)), color-stop(0.5, rgba(255, 255, 255, 0.1)), color-stop(0.5, transparent), to(transparent) ); 
-			color: #FFF; 
-		} 
+ ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
 
-		div#application > #pages > ul > li ul.list li { 
-			padding: 7px 13px; 
-			border-bottom: 1px solid #000; 
-			clear:both;
-			vertical-align: middle;
-		}
-		
-		div#application > #pages > ul > li ul.list li.arrow { 
-			background-image: url(../img/list_arrow.jpg);
-			padding-right:57px;
-			background-position:  263px center;
-			background-repeat: no-repeat;
-		}
-		
-		div#application > #pages > ul > li ul.list li.details { 
-			background-image: url(../img/list_details.jpg);
-			padding-right:57px;
-			background-position:  263px center;
-			background-repeat: no-repeat;
+ .clearer {
+    float: none;
+    height: 0px;
+    width: 100%;
+    clear: both;
+}
 
-		}
-		div#application > #pages > ul > li ul.list li.checkmark { 
-			background-image: url(../img/list_checkmark.jpg);
-			padding-right:57px;
-			background-position:  263px center;
-			background-repeat: no-repeat;
-		}
+ div#application {
+    width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: #FFF;
+    position: fixed;
+}
+
+ div#application > #pages {
+    position: fixed;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 320px;
+    background: #FFF;
+}
+
+ div#application > #pages > ul {
+    position: relative;
+    width: 3000px;
+    min-height: 400px;
+    background: #F0F0F0;
+}
+
+ div#application > #pages > ul > li {
+    display: block;
+    width: 320px;
+    min-height: 400px;
+    float: left;
+    background: #FFF;
+}
+
+ div#application > #pages > ul > li div.padded {
+    padding-left: 13px;
+    padding-right: 13px;
+    padding-top: 8px;
+    padding-bottom: 15px;
+}
+
+ div#application > header {
+    text-align: center;
+    position: relative;
+    border-top: 1px solid #666;
+    border-bottom: 1px solid #111;
+    background: #222;
+    background: -moz-linear-gradient(top, #333 0%, #111 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.55)), color-stop(0.2, rgba(255, 255, 255, 0.35)), color-stop(0.5, rgba(255, 255, 255, 0.1)), color-stop(0.5, transparent), to(transparent) );
+    color: #FFF;
+}
+
+ div#application > #pages > ul > li ul.list li {
+    padding: 7px 13px;
+    border-bottom: 1px solid #000;
+    clear: both;
+    vertical-align: middle;
+}
+
+ div#application > #pages > ul > li ul.list li.arrow {
+    background-image: url(../img/list_arrow.jpg);
+    padding-right: 57px;
+    background-position: 263px center;
+    background-repeat: no-repeat;
+}
+
+ div#application > #pages > ul > li ul.list li.details {
+    background-image: url(../img/list_details.jpg);
+    padding-right: 57px;
+    background-position: 263px center;
+    background-repeat: no-repeat;
+}
+
+ div#application > #pages > ul > li ul.list li.checkmark {
+    background-image: url(../img/list_checkmark.jpg);
+    padding-right: 57px;
+    background-position: 263px center;
+    background-repeat: no-repeat;
+}
+
+ /* buttons that appear in list views */
+div#application > #pages > ul > li ul.list li a.accessory {
+    display: block;
+    width: 50px;
+    min-height: 50px;
+    height: 100%;
+    float: right;
+    position: relative;
+    left: 5px;
+    text-decoration: none;
+    color: transparent;
+}
+
+ div#application > #pages > ul > li ul.list li a.accessory.details {
+    background-image: url(../img/list_details.jpg);
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+
+ div#application > #pages > ul > li ul.list li a.accessory.checkmark {
+    background-image: url(../img/list_checkmark.jpg);
+    background-position: right center;
+    background-repeat: no-repeat;
+}
 
 
-		/* buttons that appear in list views */ 
+ div#application > #pages > ul > li ul.list li a.accessory.arrow {
+    background-image: url(../img/list_arrow.jpg);
+    background-position: right center;
+    background-repeat: no-repeat;
+}
 
-		div#application > #pages > ul > li ul.list li a.accessory {
-			display: block; width:50px; min-height: 50px; height:100%;
-			float:right;
-			position:relative;
-			left:5px;
-			text-decoration: none;
-			color: transparent;
-		}
-		div#application > #pages > ul > li ul.list li a.accessory.delete {
-			background-image: url(../img/list_delete.jpg);
-			background-position: right center;
-			background-repeat: no-repeat;		
-		}
-		div#application > #pages > ul > li ul.list li a.accessory.add {
-			background-image: url(../img/list_add.jpg);
-			background-position: right center;
-			background-repeat: no-repeat;		
-		}
-		
-		div#application > #pages > ul > li ul.list li span { 			
-			display: block;
-		}
+ div#application > #pages > ul > li ul.list li a.accessory.delete {
+    background-image: url(../img/list_delete.jpg);
+    background-position: right center;
+    background-repeat: no-repeat;
+}
 
-		div#application > #pages > ul > li ul.list li:after { 
-			
-			content: ".";
-			display: block;
-			height: 0;
-			clear: both;
-			visibility: hidden;	
-		}
-		
-   		div#application > #pages > ul > li  ul.list li.active { 
-			background: #2c7ae5;
-			color: #FFF;
-		}
+ div#application > #pages > ul > li ul.list li a.accessory.add {
+    background-image: url(../img/list_add.jpg);
+    background-position: right center;
+    background-repeat: no-repeat;
+}
 
-		div#application > #pages > ul > li ul.list li aside {
-			float: left;
-			width: 50px; 
-			min-height: 50px; 
-			height: 100%; 
-			margin-right: 13px; 
-		} 
+ div#application > #pages > ul > li ul.list li span {
+    display: block;
+}
 
-        div#application > #pages > ul > li ul.list li aside.thin {
-            width:25px;
-            
-        } 
+ div#application > #pages > ul > li ul.list li:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
 
-        div#application > #pages > ul > li ul.list li.thin aside {
-            min-height: 25px; 
-            width:25px;
+ div#application > #pages > ul > li ul.list li.active {
+    background: #2c7ae5;
+    color: #FFF;
+}
 
-        } 
-        div#application > #pages > ul > li ul.list li.thin a.accessory {
-                min-height: 25px; 
-        }
+ div#application > #pages > ul > li ul.list li aside {
+    float: left;
+    width: 50px;
+    min-height: 50px;
+    height: 100%;
+    margin-right: 13px;
+}
 
+ div#application > #pages > ul > li ul.list li aside.thin {
+    width: 25px;
+}
 
-   /* Authentication Details */
+ div#application > #pages > ul > li ul.list li.thin aside {
+    min-height: 25px;
+    width: 25px;
+}
 
-    div#application .loggedout { display:none; }
-	 	
-    div#application.loggedout .loggedout { display: block; }	 		 	
-    div#application .loggedin { display:none; }	 	
-    div#application.loggedin .loggedin { display: block; }
-		
-		/* Alert Pops */
-	
-		#alerts{
-			width: 320px;
-			position: fixed;
-			bottom: 0px;
-			/*display: none;*/
-			text-align: center;
-			 position: fixed;
-		 	left: 0px;
-		 	z-index: 997;
-		}
-		#alert_message{
-			z-index: 999;
-			position: fixed;
-			bottom: 0px;
-			width: 290px;
-			margin: auto 10px;
-		}
-		#alert_message p{
-			text-align: left;
-			background: #f0f0f0;
-			border-radius: 5px;
-			-moz-border-radius: 5px;
-			-webkit-border-radius: 5px;
-			padding: 5px;
-			font-size: 14px;
-		}
-		#alert_background{
-			/*background:-webkit-gradient(linear, 28% 100%, 28% 3%, from(#FFFFFF), to(#000000)); */
-			background-color: #000;
-			opacity:0.80;
-			-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
-			filter: alpha(opacity=80);
-			z-index: 998;
-			background: -moz-linear-gradient(top, #333 0%, #111 100%); 
-			background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.8)), color-stop(0.1, rgba(255, 255, 255, 0.0)), color-stop(0.5, rgba(255, 255, 255, 0)), color-stop(0.8, transparent), to(transparent) );
-	   }
-		
-		#alert_background.error {
-			background-color: #ff56aa;
-			background:-webkit-gradient(linear, 28% 100%, 28% 3%, from(#ff56aa), to(#ff56aa));
-		}
-		
-		#alert_background.loading{
-			background: rgba(0,0,0,0.75);
+ div#application > #pages > ul > li ul.list li.thin a.accessory {
+    min-height: 25px;
+}
+
+ /* Authentication Details */
+div#application .loggedout {
+    display: none;
+}
+
+ div#application.loggedout .loggedout {
+    display: block;
+}
+
+ div#application .loggedin {
+    display: none;
+}
+
+ div#application.loggedin .loggedin {
+    display: block;
+}
+
+ /* Alert Pops */
+#alerts {
+    width: 320px;
+    position: fixed;
+    bottom: 0px;
+    text-align: center;
+	position: fixed;
+    left: 0px;
+    z-index: 997;
+}
+
+ #alert_message {
+    z-index: 999;
+    position: fixed;
+    bottom: 0px;
+    width: 290px;
+    margin: auto 10px;
+}
+
+ #alert_message p {
+    text-align: left;
+/*     background: #f0f0f0; */
 /*
-			background:-webkit-gradient(linear, 28% 100%, 28% 3%, from(#FFFFFF), to(#000000));
-			-moz-box-shadow: 4px 5px 5px #000000;
-			-webkit-box-shadow: 4px 5px 5px #000000;
-			box-shadow: 4px 5px 5px #000000;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    padding: 5px;
 */
-			border-radius: 10px;
-			-moz-border-radius: 10px;
-			-webkit-border-radius: 10px;
-			margin-left: 60px;
-			margin-right: 60px;
-		}
-		
-		#alert_message.loading{
-			color: #fff;
-			text-shadow:2px 2px 2px #000000;
-		}
-		
-		a.alert_button {
-			display: block;
-			text-decoration:none;
-			font-family: Helvetica, sans-serif;
-			font-size: 14px;
-			color: #050505;
-			padding: 10px 20px;
-			background: -moz-linear-gradient(
-				top,
-				#bfc0c7 0%,
-				#f0f0f0);
-			background: -webkit-gradient(
-				linear, left top, left bottom, 
-				from(#bfc0c7),
-				to(#f0f0f0));
-			border-radius: 30px;
-			-moz-border-radius: 30px;
-			-webkit-border-radius: 30px;
-			border: 1px solid #000000;
-			-moz-box-shadow:
-				0px 1px 3px rgba(000,000,000,0.5),
-				inset 0px 0px 1px rgba(255,255,255,0.7);
-			-webkit-box-shadow:
-				0px 1px 3px rgba(000,000,000,0.5),
-				inset 0px 0px 1px rgba(255,255,255,0.7);
-			text-shadow:
-				0px -1px 0px rgba(000,000,000,0.4),
-				0px 1px 0px rgba(255,255,255,0.3);
-		}
+	color: #FFF;
+    font-size: 14px;
+}
 
-		.loading_icon {
-		-webkit-animation: cssAnimation 1s infinite linear;
-		-moz-animation: cssAnimation 1s infinite linear;
-		}
-		@-webkit-keyframes cssAnimation {
-		from { -webkit-transform: rotate(0deg) scale(1) skew(1deg) translate(0px); }
-		to { -webkit-transform: rotate(360deg) scale(1) skew(1deg) translate(0px); }
-		}
-		@-moz-keyframes cssAnimation {
-		from { -moz-transform: rotate(0deg) scale(1) skew(1deg) translate(0px); }
-		to { -moz-transform: rotate(360deg) scale(1) skew(1deg) translate(0px); }
-		}		
-		
-
-		#toolbar_loader { position: absolute; right: 7px; top:7px; display: none; } 		
-		.loading #toolbar_loader { display: block; } 		
-
-		#toolbar_loader .loading_indicator {
-		display: block;
-		height:16px;
-		width:16px;
-		-webkit-animation: cssAnimation 1s infinite linear;
-		-moz-animation: cssAnimation 1s infinite linear;
-		}	
-		
-		/* Cool Header styles from 	http://www.cagintranet.com/archive/create-an-ios-header-bar-in-css3-and-html5/ */
-
-		div#application > header h1 {  
-			margin:0px;
-			 padding:5px 0 5px 0;text-align:center; 
-			  font-size:20px; 
-			  text-shadow:rgba(0, 0, 0, 1) 0 -1px 0;  
-		  }
-
-		div#application > header .button { 
-		  display:block; 
-		  padding:2px 10px; 
-		  line-height:21px; 
-		  border-radius: 5px; 
-		  -moz-border-radius:5px; 
-		  -webkit-border-radius: 5px; 
-		  overflow:hidden; 
-		  height: 21px; 
-		  font-weight: bold; 
-		  position: absolute; 
-		  top: 3px; 
-		  font-family:inherit; 
-		  font-size:12px; 
-		  text-shadow:rgba(0, 0, 0, 0.6) 0 -1px 0; 
-		  text-overflow:ellipsis; 
-		  text-align:center; 
-		  white-space:nowrap; 
-		  background:none; 
-		  cursor:pointer; 
-		  margin:0; 
-		  -webkit-transition: all .3s ease-in-out; 
-		  -moz-transition: all .3s ease-in-out; 
-		  -o-transition: all .3s ease-in-out; 
-		} 
-		div#application > header .button:link, .button:visited { 
-		  color:#fff; 
-		  background: #555; 
-		  background: -moz-linear-gradient(top, #555 0%, #222 100%); 
-		  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.55)), color-stop(0.2, rgba(255, 255, 255, 0.35)), color-stop(0.5, rgba(255, 255, 255, 0.1)), color-stop(0.5, transparent), to(transparent) ); 
-		  border:1px solid #222; 
-		  text-decoration:none; 
-		  -webkit-box-shadow:inset 0 1px 1px rgba(0, 0, 0, .25), 0 1px 0 rgba(255, 255, 255, 0.25); 
-		} 
-		div#application > header .button:active, .button:focus, .button:hover { 
-		  text-decoration:none; 
-		  background: #444; 
-		  background: -moz-linear-gradient(top, #444 0%, #111 100%); 
-		  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.55)), color-stop(0.2, rgba(255, 255, 255, 0.35)), color-stop(0.5, rgba(255, 255, 255, 0.1)), color-stop(0.5, transparent), to(transparent) ); 
-		}
-	
+ #alert_message p a {
+ 	color: #FFF; font-weight: bold; 
+ }
 
 
-		div#application > header a.back { position: absolute; left: 3px; }
-		div#application > header a.next { position: absolute; right: 3px; }		
-		
-		
-		/* Cool Footer styles from 	http://jordandobson.com/webkit_mask_iphone_nav/retina/# */
+ #alert_background {
+    background-color: #000;
+    /*background:-webkit-gradient(linear, 28% 100%, 28% 3%, from(#FFFFFF), to(#000000));
+    */
+opacity: 0.80;
+    -ms-filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=80);
+    filter: alpha(opacity=80);
+    z-index: 998;
+    background: -moz-linear-gradient(top, #333 0%, #111 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.8)), color-stop(0.1, rgba(255, 255, 255, 0.0)), color-stop(0.5, rgba(255, 255, 255, 0)), color-stop(0.8, transparent), to(transparent) );
+}
 
-		div#application > footer { 
-		
-	       background-color:       #000;
-	        padding:                .1em 0;
-	        position:               fixed;
-	        bottom:                 0;
-	        width:                  100%;
-	        border-top:             .05em solid rgba(255,255,255,.33);
-	        -webkit-box-shadow:     0 -0.05em 0 rgba(0,0,0,0.9);
-	        background-image:       -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(255,255,255,.15)), color-stop(0.5, rgba(255,255,255,.10)), color-stop(0.505, rgba(255,255,255,.0)), to(rgba(255,255,255,.0)));
- 		
-		
-		} 
-		div#application > footer > a {       
-				margin:                 0 auto;
-				width:                  3.5em;
-				height:                 2.5em;
-				position:               relative;
-				border-radius:          .25em;
-				-webkit-border-radius:  .25em;
-				display:                inline-block;
-				vertical-align:         middle; 
-				text-decoration: none;
-		}
+ #alert_background.error {
+    background-color: #ff56aa;
+    background: -webkit-gradient(linear, 28% 100%, 28% 3%, from(#ff56aa), to(#ff56aa));
+}
 
-		div#application > footer > a  > strong{
-	        position:               absolute;
-	        font-size:              .5em;
-	        color:                  #999;
-	        bottom:                 0;
-	        width:                  100%;
-	        text-align:             center;
-	        line-height:            1.5em;
-	        font-weight:            bold;
-	        -webkit-font-smoothing: antialiased;
-      }
+ #alert_background.loading,  
+ #alert_background.confirmation {
+    background: rgba(0,0,0,0.75);
+    border-radius: 10px;
+    /*background:-webkit-gradient(linear, 28% 100%, 28% 3%, from(#FFFFFF), to(#000000));
+    -moz-box-shadow: 4px 5px 5px #000000;
+    -webkit-box-shadow: 4px 5px 5px #000000;
+    box-shadow: 4px 5px 5px #000000;
+    */
+-moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    margin-left: 60px;
+    margin-right: 60px;
+}
+
+ #alert_message.loading,
+ #alert_message.confirmation {
  
-		div#application > footer >      a.active{
-        background-color:       rgba(255,255,255,.10);
-      }
-      
- 		div#application > footer >     a.active > strong{
-        color:                  #fff;
-      }
-     
+    color: #fff;
+    text-shadow: 2px 2px 2px #000000;
+}
 
+ a.alert_button {
+    display: block;
+    text-decoration: none;
+    font-family: Helvetica, sans-serif;
+    font-size: 14px;
+    color: #050505;
+    padding: 10px 20px;
+    background: -moz-linear-gradient(top,#bfc0c7 0%,#f0f0f0);
+    background: -webkit-gradient(linear, left top, left bottom,from(#bfc0c7),to(#f0f0f0));
+    border-radius: 30px;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border: 1px solid #000000;
+    -moz-box-shadow:0px 1px 3px rgba(000,000,000,0.5),inset 0px 0px 1px rgba(255,255,255,0.7);
+    -webkit-box-shadow:0px 1px 3px rgba(000,000,000,0.5),inset 0px 0px 1px rgba(255,255,255,0.7);
+    text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 1px 0px rgba(255,255,255,0.3);
+    margin-bottom:5px;
+}
+
+ .loading_icon {
+    -webkit-animation: cssAnimation 1s infinite linear;
+    -moz-animation: cssAnimation 1s infinite linear;
+}
+
+ @-webkit-keyframes cssAnimation {
+    from ;
+}
+
+ to {
+    -webkit-transform: rotate(360deg) scale(1) skew(1deg) translate(0px);
+}
+
+ {
+    ;
+}
+
+ @-moz-keyframes cssAnimation {
+    from ;
+}
+
+ to {
+    -moz-transform: rotate(360deg) scale(1) skew(1deg) translate(0px);
+}
+
+ {
+    ;
+}
+
+ #toolbar_loader {
+    position: absolute;
+    right: 7px;
+    top: 7px;
+    display: none;
+}
+
+ .loading #toolbar_loader {
+    display: block;
+}
+
+ #toolbar_loader .loading_indicator {
+    display: block;
+    height: 16px;
+    width: 16px;
+    -webkit-animation: cssAnimation 1s infinite linear;
+    -moz-animation: cssAnimation 1s infinite linear;
+}
+
+ /* Cool Header styles from http://www.cagintranet.com/archive/create-an-ios-header-bar-in-css3-and-html5/ */
+div#application > header h1 {
+    margin: 0px;
+    padding: 5px 0 5px 0;
+    text-align: center;
+    font-size: 20px;
+    text-shadow: rgba(0, 0, 0, 1) 0 -1px 0;
+}
+
+ div#application > header .button {
+    display: block;
+    padding: 2px 10px;
+    line-height: 21px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    overflow: hidden;
+    height: 21px;
+    font-weight: bold;
+    position: absolute;
+    top: 3px;
+    font-family: inherit;
+    font-size: 12px;
+    text-shadow: rgba(0, 0, 0, 0.6) 0 -1px 0;
+    text-overflow: ellipsis;
+    text-align: center;
+    white-space: nowrap;
+    background: none;
+    cursor: pointer;
+    margin: 0;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+}
+
+ div#application > header .button:link, .button:visited {
+    color: #fff;
+    background: #555;
+    background: -moz-linear-gradient(top, #555 0%, #222 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.55)), color-stop(0.2, rgba(255, 255, 255, 0.35)), color-stop(0.5, rgba(255, 255, 255, 0.1)), color-stop(0.5, transparent), to(transparent) );
+    border: 1px solid #222;
+    text-decoration: none;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .25), 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+ div#application > header .button:active, .button:focus, .button:hover {
+    text-decoration: none;
+    background: #444;
+    background: -moz-linear-gradient(top, #444 0%, #111 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.55)), color-stop(0.2, rgba(255, 255, 255, 0.35)), color-stop(0.5, rgba(255, 255, 255, 0.1)), color-stop(0.5, transparent), to(transparent) );
+}
+
+ div#application > header a.back {
+    position: absolute;
+    left: 3px;
+}
+
+ div#application > header a.next {
+    position: absolute;
+    right: 3px;
+}
+
+ /* Cool Footer styles from http://jordandobson.com/webkit_mask_iphone_nav/retina/# */
+div#application > footer {
+    background-color: #000;
+    padding: .1em 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-top: .05em solid rgba(255,255,255,.33);
+    -webkit-box-shadow: 0 -0.05em 0 rgba(0,0,0,0.9);
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(255,255,255,.15)), color-stop(0.5, rgba(255,255,255,.10)), color-stop(0.505, rgba(255,255,255,.0)), to(rgba(255,255,255,.0)));
+}
+
+ div#application > footer > a {
+    margin: 0 auto;
+    width: 3.5em;
+    height: 2.5em;
+    position: relative;
+    border-radius: .25em;
+    -webkit-border-radius: .25em;
+    display: inline-block;
+    vertical-align: middle;
+    text-decoration: none;
+}
+
+ div#application > footer > a > strong {
+    position: absolute;
+    font-size: .5em;
+    color: #999;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    line-height: 1.5em;
+    font-weight: bold;
+    -webkit-font-smoothing: antialiased;
+}
+
+ div#application > footer > a.active {
+    background-color: rgba(255,255,255,.10);
+}
+
+ div#application > footer > a.active > strong {
+    color: #fff;
+}
 
