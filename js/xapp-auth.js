@@ -61,7 +61,15 @@ XAPP.AUTH = function() {
 										fail(json);
 									}
 								}
+						},
+					error: function(xhr,status,error) {
+					
+						if (fail) {
+							fail({status: 'error',error:error});
+						} else {
+							XAPP.alert(error);
 						}
+					}
 			});
 			return false;
 		},
@@ -89,6 +97,14 @@ XAPP.AUTH = function() {
 							fail(json);
 						}
 					}
+				},
+				error: function(xhr,status,error) {
+				
+					if (fail) {
+						fail({status: 'error',error:error});
+					} else {
+						XAPP.alert(error);
+					}
 				}
 			});
 			return false;
@@ -106,7 +122,15 @@ XAPP.AUTH = function() {
 			    	if (callback) {
 				    	callback();
 				    }
-			    }
+			    },
+				error: function(xhr,status,error) {
+				
+					if (fail) {
+						fail({status: 'error',error:error});
+					} else {
+						XAPP.alert(error);
+					}
+				}
 			});
 			return false;
 		},
