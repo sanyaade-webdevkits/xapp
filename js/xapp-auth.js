@@ -44,6 +44,7 @@ XAPP.AUTH = function() {
 					data: data,
 					dataType: 'json',
 					type: 'post',
+					timeout: 10000,
 					success: function(json) {
 								if (json.status=='success') {
 									$('div#application').removeClass('loggedout');
@@ -81,6 +82,7 @@ XAPP.AUTH = function() {
 				data: data,
 				dataType: 'json',
 				type: 'post',
+				timeout: 10000,
 				success: function(json) {
 					if (json.status=='success') {
 						$('div#application').removeClass('loggedout');
@@ -114,6 +116,7 @@ XAPP.AUTH = function() {
 			$.ajax({
 				url: api_endpoint+'/logout',
 				dataType: 'json',
+				timeout: 10000,
 				success: function(json) {
 					$('div#application').addClass('loggedout');
 					$('div#application').removeClass('loggedin');
