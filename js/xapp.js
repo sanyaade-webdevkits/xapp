@@ -129,7 +129,8 @@ var XAPP = (function() {
 							$('div#application > footer').show();
 						}
 						$('div#application > #pages > ul > li ul.list > li').removeClass('active');
-		
+						XAPP.pageResizer(id);
+
 				
 				},
 			online: function() {
@@ -232,7 +233,14 @@ var XAPP = (function() {
 				XAPP.pageResizer(id);	
 			},
 		 pageResizer: function(id) {		 
- 				$('div#application > #pages > ul').touchScroll({scrollHeight:$(id).outerHeight(true)});
+		 		height = $(id).outerHeight(true);
+		 		console.log("Height: " + height);
+		 		if (height > 430) {
+		 			height += 20;
+		 		}
+		 		console.log("Mod Height: " + height);
+
+ 				$('div#application > #pages > ul').touchScroll({scrollHeight:height});
 				$('div#application > #pages > ul').touchScroll('update');
 				$('div#application > #pages > ul').touchScroll('setPosition', 0);
 
@@ -318,6 +326,7 @@ var XAPP = (function() {
 				$('div#application > #pages > ul li#'+pages[x].id).css('left',0);
 				new_offset = 0;
 			}
+
 			
 			$('div#application > #pages > ul').animate({
 				left: new_offset,
