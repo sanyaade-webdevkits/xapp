@@ -46,7 +46,7 @@ var XAPP = (function() {
 						});
 						
 						// stop the entire app from being moved outside of the main window
-						$('body').touchmove(function(e) { e.preventDefault(); });
+						$('body').bind('touchmove',function(e) { e.preventDefault(); });
 				
 						$('div#application > footer > a').live('click',this.switchTab);
 						
