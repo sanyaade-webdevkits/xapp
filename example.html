@@ -145,20 +145,12 @@
 								Menu with a bit of a longer name and stuff
 							</span>
 						</li>
-						<li data-click="XAPP.nextPage();" class="checkmark">
+						<li data-click="XAPP.gotoPage('forms');" class="checkmark">
 							<aside>
 								<img src="img/img.png" width="50" height="50">
 							</aside>
 							<span>
-								Menu
-							</span>
-						</li>
-						<li data-click="XAPP.nextPage();" class="details">
-							<aside>
-								<img src="img/img.png" width="50" height="50">
-							</aside>
-							<span>
-								Menu
+								Forms
 							</span>
 						</li>
 						<li data-click="XAPP.alert('This is a normal message that is a bit longer than ');">
@@ -306,6 +298,59 @@
 			            <button id="join_button"class="auth_button">Join</button>
 			        </form>
 					</div>
+			    </li>
+			    <li id="forms" data-title="Form">
+			    	<form>
+						<p class="input">
+							<input type="text" placeholder="Placeholder Text" />
+						</p>			    	
+						<p class="input">
+							<input type="text" placeholder="Placeholder Text" />
+						</p>			    	
+						<p class="input">
+							<textarea placeholder="Placeholder Text"></textarea>
+						</p>			    	
+						<p class="input">
+							<input type="text" placeholder="Placeholder Text" />
+						</p>			    	
+
+			    	</form>
+
+			    	<form>
+			    		<fieldset>
+						<p class="input">
+							<input type="text" placeholder="Placeholder Text" />
+						</p>			    	
+						<p class="input">
+							<textarea placeholder="Placeholder Text"></textarea>
+						</p>
+						</fieldset>    	
+			    	</form>
+
+			    	<form>
+			    		<fieldset>
+						<p class="input">
+							<label>Title:</label>
+							<input type="text" placeholder="Placeholder Text" />
+						</p>			    	
+						<p class="input">
+							<label>Body:</label>
+							<textarea placeholder="Placeholder Text"></textarea>
+						</p>
+						</fieldset>    	
+			    	</form>
+			    	<form>
+			    		<fieldset>
+						<p class="input">
+							<label>Title: <input type="text" placeholder="Placeholder Text" /></label>
+						</p>			    	
+						<p class="input">
+							<label>Body:<textarea placeholder="Placeholder Text"></textarea></label>
+						</p>
+						</fieldset>    	
+			    	</form>
+
+
 			    </li>
 			</ul>
 		</div>
