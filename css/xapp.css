@@ -461,6 +461,7 @@ form {
 	form p.input input { 
 		border: 0px;
 		padding:0px; 
+		margin:0px;
 		width: 100%;
 		font-size: 13px;
 
@@ -471,6 +472,7 @@ form {
 	form p.input textarea { 
 		border: 0px;
 		padding:0px; 
+		margin:0px;
 		width: 100%;
 		height: 50px;
 		font-size: 13px;
