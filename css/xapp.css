@@ -501,6 +501,9 @@ form {
 		/* Shiny buttons! */
 		/* http://mwhenry.com/blog/2009/11/shiny-css-only-iphone-buttons/ */
 
+		form > input[type=submit],
+		form > intput[type=button] { margin-left: 7px; margin-right: 7px; } 
+
 	 	input[type=submit], 
 	 	input[type=button],
 	 	form p.input input[type=submit], 
