@@ -333,7 +333,7 @@ var XAPP = (function() {
 			
 			$('div#application > #pages > ul').animate({
 				left: new_offset,
-			},250,function() {
+			},'fast',function() {
 				current_page = x;
 				XAPP.updateToolbar();
 				if (typeof(callback)=='function') {
