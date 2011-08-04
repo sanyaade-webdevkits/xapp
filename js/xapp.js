@@ -44,6 +44,9 @@ var XAPP = (function() {
 							e.preventDefault();
 							$('div#application > #pages > ul').touchScroll('setPosition', 0);			
 						});
+						
+						// stop the entire app from being moved outside of the main window
+						$('body').touchmove(function(e) { e.preventDefault(); });
 				
 						$('div#application > footer > a').live('click',this.switchTab);
 						
