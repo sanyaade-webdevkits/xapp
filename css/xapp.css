@@ -426,8 +426,8 @@ div#application > header h1 {
   background: #555;
   content: '';
   display: block;
-
   -webkit-border-radius: 2px;
+
 
   position: absolute;
   top: 3px;
