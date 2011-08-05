@@ -59,6 +59,7 @@ var XAPP = (function() {
 				
 						$('div#application > #pages > ul > li ul.list > li').live('click',function() {							
 							// remove all active indicators
+														
 							$('div#application > #pages > ul > li ul.list > li').removeClass('active');
 							
 							if (!$(this).attr('nohandler')) { 
@@ -84,7 +85,7 @@ var XAPP = (function() {
 						$('div#application header').html("<h1>"+pages[current_page].title + "</h1>");
 						if (breadcrumbs.length > 0) {
 							back_button_title = breadcrumbs[breadcrumbs.length-1].title;
-							$('div#application > header').prepend('<a href="#" class="button back">' + back_button_title + '</a>');		
+							$('div#application > header').prepend('<a href="#" class="button back"><span>' + back_button_title + '</span></a>');		
 						}
 						
 						
@@ -237,12 +238,9 @@ var XAPP = (function() {
 			},
 		 pageResizer: function(id) {		 
 		 		height = $(id).outerHeight(true);
-		 		console.log("Height: " + height);
 		 		if (height > 430) {
 		 			height += 20;
 		 		}
-		 		console.log("Mod Height: " + height);
-
  				$('div#application > #pages > ul').touchScroll({scrollHeight:height});
 				$('div#application > #pages > ul').touchScroll('update');
 				$('div#application > #pages > ul').touchScroll('setPosition', 0);
@@ -257,7 +255,7 @@ var XAPP = (function() {
 		},
 		prevPage: function(callback) {
 			var prev_page = breadcrumbs.pop();
-			
+			$('div#application > header > a.back').blur();
 			XAPP.navigateToPage(prev_page.index,callback);
 			return false;
 		},
@@ -299,15 +297,19 @@ var XAPP = (function() {
 		},
 		navigateToPage: function(x,callback) {
 			var new_offset = pages[x].offset - pages[current_page].offset;
-			
+			$('div#application > #pages > ul').hide();
+
 			for (var p in pages) {
 				if (p != x && p != current_page) {
+					console.log("hiding");
+					$('div#application > #pages > ul li#' + pages[p].id).css('left',640);
+
 					$('div#application > #pages > ul li#' + pages[p].id).hide();
 				} else {
-					$('div#application > #pages > ul li#' + pages[p].id).show();
 					$('div#application > #pages > ul li#' + pages[p].id).css('float','none');
 					$('div#application > #pages > ul li#' + pages[p].id).css('position','absolute');
 					$('div#application > #pages > ul li#' + pages[p].id).css('top',0);
+					$('div#application > #pages > ul li#' + pages[p].id).show();
 
 
 				}
@@ -315,25 +317,28 @@ var XAPP = (function() {
 			if (new_offset > 0) {
 				direction = 'l';
 				
-				// put the current pageon the right hand side
+				// put the current page on the right hand side
 				$('div#application > #pages > ul li#'+pages[current_page].id).css('left',0);
 				$('div#application > #pages > ul').css('left',0);
 				$('div#application > #pages > ul li#'+pages[x].id).css('left',320);
-				new_offset = -320;
-				
+				new_offset = -320;		
+
 			} else {
 				direction = 'r';
-				// put the current pageon the right hand side
+				// put the current page on the left hand side
 				$('div#application > #pages > ul li#'+pages[current_page].id).css('left',320);
 				$('div#application > #pages > ul').css('left',-320);
 				$('div#application > #pages > ul li#'+pages[x].id).css('left',0);
 				new_offset = 0;
-			}
 
+			}
+		
+			$('div#application > #pages > ul').show();
+			
 			
 			$('div#application > #pages > ul').animate({
 				left: new_offset,
-			},'fast',function() {
+			},300,'linear',function() {
 				current_page = x;
 				XAPP.updateToolbar();
 				if (typeof(callback)=='function') {
