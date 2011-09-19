@@ -1,3 +1,6 @@
+
+body,canvas,div,li,a,p { -webkit-user-select: none }
+
 body {
     background: #000;
     padding: 0px;
@@ -27,43 +30,53 @@ body {
     margin-right: auto;
      overflow-x: hidden; 
      overflow-y: auto; 
-
     background: #FFF;
-    position: fixed;
+/*     position: fixed; */
 }
 
  div#application > #pages {
-    position: fixed;
+/*     position: fixed; */
 
     overflow-y: auto;
-/*       overflow-x: hidden; */
-/*      width: 320px;  */
-     width: 3000px; 
-
+    overflow-x: hidden; 
+    width: 320px;  
+	z-index: 1;
     background: #FFF;
 }
+ div#application > #pages > #scroller {
 
- div#application > #pages > ul {
     position: relative;
     width: 3000px;
     min-height: 430px;
     background: #F0F0F0;
+    -webkit-transform: rotate(0deg);
+ }
+
+
+ div#application > #pages > #scroller > ul {
+    position: relative;
+    width: 3000px;
+    min-height: 430px;
+    background: #F0F0F0;
+/* 	-webkit-transition: left 300ms ease; */
+	-webkit-transform: rotate(0deg);
 }
 
- div#application > #pages > ul > li {
+ div#application > #pages > #scroller > ul > li {
     display: block;
     width: 320px;
     min-height: 430px;
     float:left;
     background: #FFF;
+
 }
 
 
- div#application > #pages > ul > li:first-child {
+ div#application > #pages > #scroller > ul > li:first-child {
     display: block;
 }
 
- div#application > #pages > ul > li div.padded {
+ div#application > #pages > #scroller > ul > li div.padded {
     padding-left: 13px;
     padding-right: 13px;
     padding-top: 8px;
@@ -79,30 +92,31 @@ body {
     background: -moz-linear-gradient(top, #333 0%, #111 100%);
     background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.55)), color-stop(0.2, rgba(255, 255, 255, 0.35)), color-stop(0.5, rgba(255, 255, 255, 0.1)), color-stop(0.5, transparent), to(transparent) );
     color: #FFF;
+    z-index: 2;
 }
 
- div#application > #pages > ul > li ul.list li {
+ div#application > #pages > #scroller > ul > li ul.list li {
     padding: 7px 13px;
     border-bottom: 1px solid #000;
     clear: both;
     vertical-align: middle;
 }
 
- div#application > #pages > ul > li ul.list li.arrow {
+ div#application > #pages > #scroller > ul > li ul.list li.arrow {
     background-image: url(../img/list_arrow.jpg);
     padding-right: 57px;
     background-position: 263px center;
     background-repeat: no-repeat;
 }
 
- div#application > #pages > ul > li ul.list li.details {
+ div#application > #pages > #scroller > ul > li ul.list li.details {
     background-image: url(../img/list_details.jpg);
     padding-right: 57px;
     background-position: 263px center;
     background-repeat: no-repeat;
 }
 
- div#application > #pages > ul > li ul.list li.checkmark {
+ div#application > #pages > #scroller > ul > li ul.list li.checkmark {
     background-image: url(../img/list_checkmark.jpg);
     padding-right: 57px;
     background-position: 263px center;
@@ -110,7 +124,7 @@ body {
 }
 
  /* buttons that appear in list views */
-div#application > #pages > ul > li ul.list li a.accessory {
+div#application > #pages > #scroller >  ul > li ul.list li a.accessory {
     display: block;
     width: 50px;
     min-height: 50px;
@@ -122,42 +136,42 @@ div#application > #pages > ul > li ul.list li a.accessory {
     color: transparent;
 }
 
- div#application > #pages > ul > li ul.list li a.accessory.details {
+ div#application > #pages > #scroller > ul > li ul.list li a.accessory.details {
     background-image: url(../img/list_details.jpg);
     background-position: right center;
     background-repeat: no-repeat;
 }
 
- div#application > #pages > ul > li ul.list li a.accessory.checkmark {
+ div#application > #pages > #scroller > ul > li ul.list li a.accessory.checkmark {
     background-image: url(../img/list_checkmark.jpg);
     background-position: right center;
     background-repeat: no-repeat;
 }
 
 
- div#application > #pages > ul > li ul.list li a.accessory.arrow {
+ div#application > #pages > #scroller > ul > li ul.list li a.accessory.arrow {
     background-image: url(../img/list_arrow.jpg);
     background-position: right center;
     background-repeat: no-repeat;
 }
 
- div#application > #pages > ul > li ul.list li a.accessory.delete {
+ div#application > #pages > #scroller > ul > li ul.list li a.accessory.delete {
     background-image: url(../img/list_delete.jpg);
     background-position: right center;
     background-repeat: no-repeat;
 }
 
- div#application > #pages > ul > li ul.list li a.accessory.add {
+ div#application > #pages > #scroller > ul > li ul.list li a.accessory.add {
     background-image: url(../img/list_add.jpg);
     background-position: right center;
     background-repeat: no-repeat;
 }
 
- div#application > #pages > ul > li ul.list li span {
+ div#application > #pages > #scroller > ul > li ul.list li span {
     display: block;
 }
 
- div#application > #pages > ul > li ul.list li:after {
+ div#application > #pages > #scroller > ul > li ul.list li:after {
     content: ".";
     display: block;
     height: 0;
@@ -165,12 +179,12 @@ div#application > #pages > ul > li ul.list li a.accessory {
     visibility: hidden;
 }
 
- div#application > #pages > ul > li ul.list li.active {
+ div#application > #pages > #scroller > ul > li ul.list li.active {
     background: #2c7ae5;
     color: #FFF;
 }
 
- div#application > #pages > ul > li ul.list li aside {
+ div#application > #pages > #scroller > ul > li ul.list li aside {
     float: left;
     width: 50px;
     min-height: 50px;
@@ -178,17 +192,17 @@ div#application > #pages > ul > li ul.list li a.accessory {
     margin-right: 13px;
 }
 
- div#application > #pages > ul > li ul.list li aside.thin {
-    width: 25px;
+ div#application > #pages > #scroller > ul > li ul.list li aside.thin {
+    width: 30px;
 }
 
- div#application > #pages > ul > li ul.list li.thin aside {
-    min-height: 25px;
-    width: 25px;
+ div#application > #pages > #scroller > ul > li ul.list li.thin aside {
+    min-height: 30px;
+    width: 30px;
 }
 
- div#application > #pages > ul > li ul.list li.thin a.accessory {
-    min-height: 25px;
+ div#application > #pages > #scroller > ul > li ul.list li.thin a.accessory {
+    min-height: 30px;
 }
 
  /* Authentication Details */
@@ -321,7 +335,7 @@ to { -moz-transform: rotate(360deg) scale(1) skew(1deg) translate(0px); }
  #toolbar_loader {
     position: absolute;
     right: 7px;
-    top: 7px;
+    top: 12px;
     display: none;
 }
 

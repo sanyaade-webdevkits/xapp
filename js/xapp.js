@@ -1,5 +1,9 @@
+
 var XAPP = (function() { 
 
+			var transition; 
+
+			var device_width = 320;			
 			// holds a history of all the pages, in the order we viewed them, so we can go BACK
 			var breadcrumbs = new Array();
 			
@@ -19,30 +23,54 @@ var XAPP = (function() {
 				boot: function() { 
 		
 						LOCAL_STORAGE= new Lawnchair(function(){});
+						
+/*
+						if ((navigator.platform.indexOf("iPad") != -1)) {
+							device_width = 768;
+							$(' div#application > #pages > #scroller > ul').css('min-height','1024px');
+							$(' div#application > #pages > #scroller').css('min-height','1024px');
 
-				
+						} else {
+							device_width = 320;
+						}
+*/
+
+						
 						// add a header, footer, and alerts holder.
 						$('div#application').prepend('<header></header><div id="alerts"></div>');
 						$('div#application').append('<footer></footer>');
 				
+						// set everythign to be device width
+						$('div#application').css('width',device_width+'px');
+						$('div#application > #pages').css('width',device_width+'px');
+						$(' div#application > #pages > #scroller > ul > li').css('width',device_width+'px');
+						$('#alerts').css('width',device_width+'px');
+
+	
+						$('div#application > #pages > #scroller > ul').get(0).addEventListener( 'webkitTransitionEnd', function( event ) { XAPP.transition().finished(); }, false );
+
+	
 						// suck all the current pages into an array so we know where we are.
-						$('div#application > #pages >  ul > li').each(function() { 
+						count = 0;
+						$('div#application > #pages > #scroller > ul > li').each(function() { 
 							pages.push({title: $(this).attr('data-title'),offset: $(this).position().left,id: $(this).attr('id')});
 							//$(this).css('position','relative');
 							//$(this).css('float','none');
 						});
 							
 						// show the first page
-						$('div#application > #pages > ul > li:first-child').show();
+						$(' div#application > #pages > #scroller > ul > li:first-child').show();
+						$(' div#application > #pages > #scroller > ul > li:first-child').css('position','absolute');
+
 							
 						// show the first tab of any multi-tab page
-						$('div#application > #pages > ul > li > section').hide();
-						$('div#application > #pages > ul > li > section:first-child').show();
+						$(' div#application > #pages > #scroller > ul > li > section').hide();
+						$(' div#application > #pages > #scroller > ul > li > section:first-child').show();
 					
 						$('div#application > header > a.back').live('click',this.prevPage);
 						$('div#application > header').click(function(e) {
 							e.preventDefault();
-							$('div#application > #pages > ul').touchScroll('setPosition', 0);			
+							$('div#application > #pages > #scroller').touchScroll('setPosition', 0);			
 						});
 						
 						// stop the entire app from being moved outside of the main window
@@ -51,16 +79,17 @@ var XAPP = (function() {
 						$('div#application > footer > a').live('click',this.switchTab);
 						
 						// make sure accessory clicks do not fire the main row selection
-						$('div#application > #pages > ul > li ul.list li a.accessory').live('click',function(e) {  e.preventDefault(); return false;});
+						$(' div#application > #pages > #scroller > ul > li ul.list li a.accessory').live('click',function(e) {  e.preventDefault(); return false;});
 						
 						// handle iOS scrolling
 						// may not be needed when iOS 5.0 comes out!
-						$('div#application > #pages > ul').touchScroll();
+						$('div#application > #pages > #scroller').touchScroll();
 				
-						$('div#application > #pages > ul > li ul.list > li').live('click',function() {							
+						$(' div#application > #pages > #scroller > ul > li ul.list > li').live('click',function(e) {							
 							// remove all active indicators
-														
-							$('div#application > #pages > ul > li ul.list > li').removeClass('active');
+							e.preventDefault();
+
+						//	$(' div#application > #pages > #scroller > ul > li ul.list > li').removeClass('active');
 							
 							if (!$(this).attr('nohandler')) { 
 								$(this).addClass('active');
@@ -79,6 +108,18 @@ var XAPP = (function() {
 				},
 				title: function(newtitle) {
 					$('div#application header h1').html(newtitle);
+				},
+				transition: function() {
+					return transition;
+				},
+				isiPad: function(){
+				    return (navigator.platform.indexOf("iPad") != -1);
+				},
+				isiPad: function(){
+				   //Detect iPhone
+			        (navigator.platform.indexOf("iPhone") != -1) ||
+			        //Detect iPod
+			        (navigator.platform.indexOf("iPod") != -1)
 				},
 				updateToolbar: function() {
 					
@@ -102,9 +143,11 @@ var XAPP = (function() {
 								$('div#application > header').prepend('<div id="toolbar_loader"><img src="img/loading_small_white.png" border="0" height="16" width="16" class="loading_indicator"></div>');
 							}
 						}
-						$('div#application > #pages > ul').touchScroll({scrollHeight:$(id).outerHeight(true)});
-						$('div#application > #pages > ul').touchScroll('update');
-						$('div#application > #pages > ul').touchScroll('setPosition', 0);
+/*
+						$('div#application > #pages').touchScroll({scrollHeight:$(id).outerHeight(true)});
+						$('div#application > #pages').touchScroll('update');
+						$('div#application > #pages').touchScroll('setPosition', 0);
+*/
 			
 
 
@@ -132,7 +175,7 @@ var XAPP = (function() {
 							}
 							$('div#application > footer').show();
 						}
-						$('div#application > #pages > ul > li ul.list > li').removeClass('active');
+						$(' div#application > #pages > #scroller > ul > li ul.list > li').removeClass('active');
 						XAPP.pageResizer(id);
 
 				
@@ -216,7 +259,7 @@ var XAPP = (function() {
 				$('div#application > footer > a').removeClass('active');
 				$(id + ' > section').hide();
 
-				$('div#application > #pages > ul').touchScroll('setPosition', 0);
+				$('div#application > #pages > #scroller').touchScroll('setPosition', 0);
 				if ($('#'+tab).attr('data-before')) {
 					var event = $('#'+tab).attr('data-before');
 					res = eval(event);			
@@ -241,9 +284,12 @@ var XAPP = (function() {
 		 		if (height > 430) {
 		 			height += 20;
 		 		}
- 				$('div#application > #pages > ul').touchScroll({scrollHeight:height});
-				$('div#application > #pages > ul').touchScroll('update');
-				$('div#application > #pages > ul').touchScroll('setPosition', 0);
+		 		if (height < 450) {
+		 			height = 450;
+		 		}
+ 				$('div#application > #pages > #scroller').touchScroll({scrollHeight:height});
+				$('div#application > #pages > #scroller').touchScroll('update');
+				$('div#application > #pages > #scroller').touchScroll('setPosition', 0);
 
 		 },		
 		 nextPage: function(callback) {			
@@ -253,7 +299,8 @@ var XAPP = (function() {
 			
 			return false;
 		},
-		prevPage: function(callback) {
+		prevPage: function(e,callback) {
+			e.preventDefault();
 			var prev_page = breadcrumbs.pop();
 			$('div#application > header > a.back').blur();
 			XAPP.navigateToPage(prev_page.index,callback);
@@ -291,54 +338,102 @@ var XAPP = (function() {
 			if (!options.no_history) {
 				breadcrumbs.push({title:  pages[current_page].title, index: current_page, offset: pages[current_page].offset});
 			}
-			
+
 			XAPP.navigateToPage(x,callback);
 			return false;
 		},
 		navigateToPage: function(x,callback) {
-			var new_offset = pages[x].offset - pages[current_page].offset;
-			$('div#application > #pages > ul').hide();
 
+			// remove the selection highlight.  it is distracting!
+
+        
+			var new_offset = pages[x].offset - pages[current_page].offset;
+
+			// hide all the unnecessary pages.
 			for (var p in pages) {
 				if (p != x && p != current_page) {
-					console.log("hiding");
-					$('div#application > #pages > ul li#' + pages[p].id).css('left',640);
-
-					$('div#application > #pages > ul li#' + pages[p].id).hide();
+					$(' div#application > #pages > #scroller > ul li#' + pages[p].id).hide();
+					$(' div#application > #pages > #scroller > ul li#' + pages[p].id).css('left',640);
 				} else {
-					$('div#application > #pages > ul li#' + pages[p].id).css('float','none');
-					$('div#application > #pages > ul li#' + pages[p].id).css('position','absolute');
-					$('div#application > #pages > ul li#' + pages[p].id).css('top',0);
-					$('div#application > #pages > ul li#' + pages[p].id).show();
-
-
+					$(' div#application > #pages > #scroller > ul li#' + pages[p].id).css('float','none');
+					$(' div#application > #pages > #scroller > ul li#' + pages[p].id).css('position','absolute');
+					$(' div#application > #pages > #scroller > ul li#' + pages[p].id).css('top',0);
+					$(' div#application > #pages > #scroller > ul li#' + pages[p].id).show();
 				}
 			}
 			if (new_offset > 0) {
 				direction = 'l';
 				
 				// put the current page on the right hand side
-				$('div#application > #pages > ul li#'+pages[current_page].id).css('left',0);
-				$('div#application > #pages > ul').css('left',0);
-				$('div#application > #pages > ul li#'+pages[x].id).css('left',320);
-				new_offset = -320;		
+/*
+				$(' div#application > #pages > #scroller > ul li#'+pages[current_page].id).css('left',0);
+				$(' div#application > #pages > #scroller > ul').css('left',0);
+				$(' div#application > #pages > #scroller > ul li#'+pages[x].id).css('left',320);
+*/
+				var cur_offset =  $(' div#application > #pages > #scroller > ul li#'+pages[current_page].id).css('left');
+				if (cur_offset == 'auto') {
+					cur_offset = 0;
+				} else {
+					cur_offset = parseInt(cur_offset);
+				}
+				new_offset = cur_offset + device_width;
+				$(' div#application > #pages > #scroller > ul li#'+pages[x].id).css('left',new_offset+'px');
+				new_offset = 0 - new_offset;			
 
 			} else {
 				direction = 'r';
-				// put the current page on the left hand side
-				$('div#application > #pages > ul li#'+pages[current_page].id).css('left',320);
-				$('div#application > #pages > ul').css('left',-320);
-				$('div#application > #pages > ul li#'+pages[x].id).css('left',0);
-				new_offset = 0;
 
+				var cur_offset =  $(' div#application > #pages > #scroller > ul li#'+pages[current_page].id).css('left');
+				if (cur_offset == 'auto') {
+					cur_offset = 0;
+				} else {
+					cur_offset = parseInt(cur_offset);
+				}				
+
+				new_offset = cur_offset - device_width;
+				$(' div#application > #pages > #scroller > ul li#'+pages[x].id).css('left',new_offset+'px');
+				new_offset = 0 - new_offset;			
+
+//				new_offset = 0;
+
+
+            
 			}
-		
-			$('div#application > #pages > ul').show();
+	
+			transition = (function(new_offset,callback) {
+
+				return {
+					go: function() { 
+						$('div#application > #pages > #scroller > ul > li ul.list > li').removeClass('active');
+
+						$(' div#application > #pages > #scroller > ul').animate({
+							left: new_offset,
+                          },300,'swing',function() {
+							XAPP.transition().finished();
+						});					
+					},
+					finished: function() {
+						current_page = x;
+						XAPP.updateToolbar();
+						if (typeof(callback)=='function') {
+							callback();
+						}
+					}
+				
+				}
+				
+			})(new_offset,callback);
 			
-			
-			$('div#application > #pages > ul').animate({
+			if ($(' div#application > #pages > #scroller > ul > li ul.list > li.active').length) {
+				setTimeout('XAPP.transition().go();',200);
+			} else {
+				transition.go();
+			}
+            
+/*
+			$(' div#application > #pages > #scroller > ul').animate({
 				left: new_offset,
-			},300,'linear',function() {
+			},300,'swing',function() {
 				current_page = x;
 				XAPP.updateToolbar();
 				if (typeof(callback)=='function') {
@@ -346,6 +441,8 @@ var XAPP = (function() {
 				}
 
 			});
+*/
+
 
 
 		},
