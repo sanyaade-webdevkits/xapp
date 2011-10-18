@@ -4,11 +4,14 @@ var XAPP = (function() {
 			var transition; 
 
 			var device_width = 320;			
+			var min_height = 430;
+			var max_height = 450;
 			// holds a history of all the pages, in the order we viewed them, so we can go BACK
 			var breadcrumbs = new Array();
 			
 			// holds a list of all the pages 
 			var pages = new Array();
+			var panes = new Array();
 			
 			// tells us which page we're on
 			var current_page = 0;
@@ -25,13 +28,16 @@ var XAPP = (function() {
 						LOCAL_STORAGE= new Lawnchair(function(){});
 						
 /*
+
 						if ((navigator.platform.indexOf("iPad") != -1)) {
 							device_width = 768;
-							$(' div#application > #pages > #scroller > ul').css('min-height','1024px');
-							$(' div#application > #pages > #scroller').css('min-height','1024px');
+							min_height = 1000;
+							max_height = 1024;
 
 						} else {
 							device_width = 320;
+							min_height = 430;
+							max_height = 450;
 						}
 */
 
@@ -41,10 +47,12 @@ var XAPP = (function() {
 						$('div#application').append('<footer></footer>');
 				
 						// set everythign to be device width
+
 						$('div#application').css('width',device_width+'px');
 						$('div#application > #pages').css('width',device_width+'px');
 						$(' div#application > #pages > #scroller > ul > li').css('width',device_width+'px');
 						$('#alerts').css('width',device_width+'px');
+
 
 	
 						$('div#application > #pages > #scroller > ul').get(0).addEventListener( 'webkitTransitionEnd', function( event ) { XAPP.transition().finished(); }, false );
@@ -53,7 +61,8 @@ var XAPP = (function() {
 						// suck all the current pages into an array so we know where we are.
 						count = 0;
 						$('div#application > #pages > #scroller > ul > li').each(function() { 
-							pages.push({title: $(this).attr('data-title'),offset: $(this).position().left,id: $(this).attr('id')});
+												
+							pages.push({title: $(this).attr('data-title'),offset: $(this).position().left,id: $(this).attr('id'),ipad:$(this).attr('data-ipad')});
 							//$(this).css('position','relative');
 							//$(this).css('float','none');
 						});
@@ -281,11 +290,11 @@ var XAPP = (function() {
 			},
 		 pageResizer: function(id) {		 
 		 		height = $(id).outerHeight(true);
-		 		if (height > 430) {
+		 		if (height > min_height) {
 		 			height += 20;
 		 		}
-		 		if (height < 450) {
-		 			height = 450;
+		 		if (height < max_height) {
+		 			height = max_height;
 		 		}
  				$('div#application > #pages > #scroller').touchScroll({scrollHeight:height});
 				$('div#application > #pages > #scroller').touchScroll('update');
@@ -334,7 +343,6 @@ var XAPP = (function() {
                 breadcrumbs = new Array();
                 current_page = 0;
 			}
-
 			if (!options.no_history) {
 				breadcrumbs.push({title:  pages[current_page].title, index: current_page, offset: pages[current_page].offset});
 			}
@@ -349,87 +357,123 @@ var XAPP = (function() {
         
 			var new_offset = pages[x].offset - pages[current_page].offset;
 
-			// hide all the unnecessary pages.
-			for (var p in pages) {
-				if (p != x && p != current_page) {
-					$(' div#application > #pages > #scroller > ul li#' + pages[p].id).hide();
-					$(' div#application > #pages > #scroller > ul li#' + pages[p].id).css('left',640);
-				} else {
-					$(' div#application > #pages > #scroller > ul li#' + pages[p].id).css('float','none');
-					$(' div#application > #pages > #scroller > ul li#' + pages[p].id).css('position','absolute');
-					$(' div#application > #pages > #scroller > ul li#' + pages[p].id).css('top',0);
-					$(' div#application > #pages > #scroller > ul li#' + pages[p].id).show();
-				}
-			}
-			if (new_offset > 0) {
-				direction = 'l';
-				
-				// put the current page on the right hand side
-/*
-				$(' div#application > #pages > #scroller > ul li#'+pages[current_page].id).css('left',0);
-				$(' div#application > #pages > #scroller > ul').css('left',0);
-				$(' div#application > #pages > #scroller > ul li#'+pages[x].id).css('left',320);
-*/
-				var cur_offset =  $(' div#application > #pages > #scroller > ul li#'+pages[current_page].id).css('left');
-				if (cur_offset == 'auto') {
-					cur_offset = 0;
-				} else {
-					cur_offset = parseInt(cur_offset);
-				}
-				new_offset = cur_offset + device_width;
-				$(' div#application > #pages > #scroller > ul li#'+pages[x].id).css('left',new_offset+'px');
-				new_offset = 0 - new_offset;			
-
-			} else {
-				direction = 'r';
-
-				var cur_offset =  $(' div#application > #pages > #scroller > ul li#'+pages[current_page].id).css('left');
-				if (cur_offset == 'auto') {
-					cur_offset = 0;
-				} else {
-					cur_offset = parseInt(cur_offset);
-				}				
-
-				new_offset = cur_offset - device_width;
-				$(' div#application > #pages > #scroller > ul li#'+pages[x].id).css('left',new_offset+'px');
-				new_offset = 0 - new_offset;			
-
-//				new_offset = 0;
-
-
-            
-			}
-	
-			transition = (function(new_offset,callback) {
-
-				return {
-					go: function() { 
-						$('div#application > #pages > #scroller > ul > li ul.list > li').removeClass('active');
-
-						$(' div#application > #pages > #scroller > ul').animate({
-							left: new_offset,
-                          },300,'swing',function() {
-							XAPP.transition().finished();
-						});					
-					},
-					finished: function() {
-						current_page = x;
-						XAPP.updateToolbar();
-						if (typeof(callback)=='function') {
-							callback();
-						}
-					}
-				
-				}
-				
-			})(new_offset,callback);
 			
-			if ($(' div#application > #pages > #scroller > ul > li ul.list > li.active').length) {
-				setTimeout('XAPP.transition().go();',200);
+/*
+			if (pages[x].ipad=='full') {
+
+				for (var p in pages) {
+					if (p != x && p != current_page) {
+						alert('hiding page ' + p);
+						$(' div#application > #pages > #scroller > ul li#' + pages[p].id).hide();
+					} else {
+						alert('showing page ' + p);
+						$(' div#application > #pages > #scroller > ul li#' + pages[p].id).css('float','none');
+						$(' div#application > #pages > #scroller > ul li#' + pages[p].id).css('position','absolute');
+						$(' div#application > #pages > #scroller > ul li#' + pages[p].id).css('top','0px');
+						$(' div#application > #pages > #scroller > ul li#' + pages[p].id).show();					
+					}
+				}
+				
+				alert('SEtting page ' + x + ' to 320px left');
+				$('div#application > #pages > #scroller > ul li#' + pages[x].id).css('left',"320px");
+				$('div#application > #pages > #scroller > ul li#' + pages[x].id).css('width',"448px");
+
+				$('div#application > #pages > #scroller > ul li#' + pages[0].id).css('left',"0px");
+				$('div#application > #pages > #scroller > ul').css('left','0px');
+				current_page = x;
+				XAPP.updateToolbar();
+				if (typeof(callback)=='function') {
+					callback();
+				}
+
 			} else {
-				transition.go();
-			}
-            
+
+*/
+
+				
+				// hide all the unnecessary pages.
+				for (var p in pages) {
+					if (p != x && p != current_page) {
+						$(' div#application > #pages > #scroller > ul li#' + pages[p].id).hide();
+						$(' div#application > #pages > #scroller > ul li#' + pages[p].id).css('left',640);
+					} else {
+						$(' div#application > #pages > #scroller > ul li#' + pages[p].id).css('float','none');
+						$(' div#application > #pages > #scroller > ul li#' + pages[p].id).css('position','absolute');
+						$(' div#application > #pages > #scroller > ul li#' + pages[p].id).css('top',0);
+						$(' div#application > #pages > #scroller > ul li#' + pages[p].id).show();
+					}
+				}
+			
+				if (new_offset > 0) {
+					direction = 'l';
+					
+					// put the current page on the right hand side
+	/*
+					$(' div#application > #pages > #scroller > ul li#'+pages[current_page].id).css('left',0);
+					$(' div#application > #pages > #scroller > ul').css('left',0);
+					$(' div#application > #pages > #scroller > ul li#'+pages[x].id).css('left',320);
+	*/
+					var cur_offset =  $(' div#application > #pages > #scroller > ul li#'+pages[current_page].id).css('left');
+					if (cur_offset == 'auto') {
+						cur_offset = 0;
+					} else {
+						cur_offset = parseInt(cur_offset);
+					}
+					new_offset = cur_offset + device_width;
+					$(' div#application > #pages > #scroller > ul li#'+pages[x].id).css('left',new_offset+'px');
+					new_offset = 0 - new_offset;			
+	
+				} else {
+					direction = 'r';
+	
+					var cur_offset =  $(' div#application > #pages > #scroller > ul li#'+pages[current_page].id).css('left');
+					if (cur_offset == 'auto') {
+						cur_offset = 0;
+					} else {
+						cur_offset = parseInt(cur_offset);
+					}				
+	
+					new_offset = cur_offset - device_width;
+					$(' div#application > #pages > #scroller > ul li#'+pages[x].id).css('left',new_offset+'px');
+					new_offset = 0 - new_offset;			
+	
+	//				new_offset = 0;
+	
+	
+	            
+				}
+		
+				transition = (function(new_offset,callback) {
+	
+					return {
+						go: function() { 
+							$('div#application > #pages > #scroller > ul > li ul.list > li').removeClass('active');
+	
+							$(' div#application > #pages > #scroller > ul').animate({
+								left: new_offset,
+	                          },300,'swing',function() {
+								XAPP.transition().finished();
+							});					
+						},
+						finished: function() {
+							current_page = x;
+							XAPP.updateToolbar();
+							if (typeof(callback)=='function') {
+								callback();
+							}
+						}
+					
+					}
+					
+				})(new_offset,callback);
+				
+				if ($(' div#application > #pages > #scroller > ul > li ul.list > li.active').length) {
+					setTimeout('XAPP.transition().go();',200);
+				} else {
+					transition.go();
+				}
+/* 			} */
+	            
 /*
 			$(' div#application > #pages > #scroller > ul').animate({
 				left: new_offset,

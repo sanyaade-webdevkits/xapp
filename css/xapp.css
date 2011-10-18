@@ -103,22 +103,27 @@ body {
 }
 
  div#application > #pages > #scroller > ul > li ul.list li.arrow {
-    background-image: url(../img/list_arrow.jpg);
+    background-image: url(../img/list_arrow.png);
     padding-right: 57px;
     background-position: 263px center;
+    background-size: 50px 50px;
     background-repeat: no-repeat;
 }
 
  div#application > #pages > #scroller > ul > li ul.list li.details {
-    background-image: url(../img/list_details.jpg);
+    background-image: url(../img/list_details.png);
     padding-right: 57px;
     background-position: 263px center;
+    background-size: 50px 50px;
+
     background-repeat: no-repeat;
 }
 
  div#application > #pages > #scroller > ul > li ul.list li.checkmark {
-    background-image: url(../img/list_checkmark.jpg);
+    background-image: url(../img/list_checkmark.png);
     padding-right: 57px;
+    background-size: 50px 50px;
+
     background-position: 263px center;
     background-repeat: no-repeat;
 }
@@ -137,26 +142,32 @@ div#application > #pages > #scroller >  ul > li ul.list li a.accessory {
 }
 
  div#application > #pages > #scroller > ul > li ul.list li a.accessory.details {
-    background-image: url(../img/list_details.jpg);
+    background-image: url(../img/list_details.png);
     background-position: right center;
+    background-size: 50px 50px;
+
     background-repeat: no-repeat;
 }
 
  div#application > #pages > #scroller > ul > li ul.list li a.accessory.checkmark {
-    background-image: url(../img/list_checkmark.jpg);
+    background-image: url(../img/list_checkmark.png);
     background-position: right center;
     background-repeat: no-repeat;
+    background-size: 50px 50px;
+
 }
 
 
  div#application > #pages > #scroller > ul > li ul.list li a.accessory.arrow {
-    background-image: url(../img/list_arrow.jpg);
+    background-image: url(../img/list_arrow.png);
     background-position: right center;
+    background-size:50px 50px;
     background-repeat: no-repeat;
 }
 
  div#application > #pages > #scroller > ul > li ul.list li a.accessory.delete {
-    background-image: url(../img/list_delete.jpg);
+    background-image: url(../img/list_delete.png);
+    background-size:50px 50px;
     background-position: right center;
     background-repeat: no-repeat;
 }
@@ -180,7 +191,7 @@ div#application > #pages > #scroller >  ul > li ul.list li a.accessory {
 }
 
  div#application > #pages > #scroller > ul > li ul.list li.active {
-    background: #2c7ae5;
+    background-color: #2c7ae5;
     color: #FFF;
 }
 
