@@ -23,6 +23,8 @@ var XAPP = (function() {
 			var LOCAL_STORAGE;
 		
 			return {
+			
+				scrollwatch: false,
 				boot: function() { 
 		
 						LOCAL_STORAGE= new Lawnchair(function(){});
@@ -83,8 +85,53 @@ var XAPP = (function() {
 						});
 						
 						// stop the entire app from being moved outside of the main window
-						$('body').bind('touchmove',function(e) { e.preventDefault(); });
+						$('body').bind('touchmove',function(e) { 
+							e.preventDefault(); 
+						});
 				
+				
+/*
+						var preventDefaultScroll = function(event) {
+							  event.preventDefault();
+							  window.scroll(0,0);
+							  return false;
+						};
+						document.addEventListener('touchmove', preventDefaultScroll, false);		
+						
+*/
+
+/*
+						$('input').focus(function() {
+							var y = $(this).position().top;
+							y -= 100;
+							if (y < 0) { 
+								y = 0;
+							}
+							window.scroll(0,0);							
+							$('div#application > #pages > #scroller').touchScroll('setPosition',y);	
+							return true;		
+						});
+*/
+
+						$('input').focus(function() {
+							if (XAPP.scrollwatch) {
+								clearTimeout(XAPP.scrollwatch);
+								XAPP.scrollwatch = null;
+							}
+						});
+
+
+						$('input').blur(function() {
+							// FIX THIS
+							// It would be better if we were able to find  a way to detect when the
+							// keyboard is hidden, instead of depending on the inputs blurring
+							// but what this does is:
+							// in 100 miliseconds, it will scroll the widnow back to the top
+							// UNLESS another input is focused in the meantime.
+							XAPP.scrollwatch = setTimeout(function() { window.scroll(0,0); },100);
+						});
+
+						
 						$('div#application > footer > a').live('click',this.switchTab);
 						
 						// make sure accessory clicks do not fire the main row selection

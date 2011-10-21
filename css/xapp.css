@@ -2,7 +2,7 @@
 body,canvas,div,li,a,p { -webkit-user-select: none }
 
 body {
-    background: #000;
+    background: #000 url(../img/linen.png);
     padding: 0px;
     margin: 0px;
     overflow-y: hidden;
@@ -30,7 +30,6 @@ body {
     margin-right: auto;
      overflow-x: hidden; 
      overflow-y: auto; 
-    background: #FFF;
 /*     position: fixed; */
 }
 
@@ -41,14 +40,12 @@ body {
     overflow-x: hidden; 
     width: 320px;  
 	z-index: 1;
-    background: #FFF;
 }
  div#application > #pages > #scroller {
 
     position: relative;
     width: 3000px;
     min-height: 430px;
-    background: #F0F0F0;
     -webkit-transform: rotate(0deg);
  }
 
@@ -57,7 +54,6 @@ body {
     position: relative;
     width: 3000px;
     min-height: 430px;
-    background: #F0F0F0;
 /* 	-webkit-transition: left 300ms ease; */
 	-webkit-transform: rotate(0deg);
 }
